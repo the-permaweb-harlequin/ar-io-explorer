@@ -1,11 +1,16 @@
 import '@testing-library/jest-dom'
+import { vi } from 'vitest'
 
 // Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
+  root = null
+  rootMargin = ''
+  thresholds = []
   constructor() {}
   disconnect() {}
   observe() {}
   unobserve() {}
+  takeRecords() { return [] }
 }
 
 // Mock ResizeObserver

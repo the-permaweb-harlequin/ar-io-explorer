@@ -1,0 +1,53 @@
+{
+  "name": "@the-permaweb-harlequin/shared-types",
+  "version": "1.0.0",
+  "description": "Shared TypeScript types for Harlequin AR.IO Explorer",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./api": {
+      "import": "./dist/api.js",
+      "types": "./dist/api.d.ts"
+    },
+    "./arweave": {
+      "import": "./dist/arweave.js",
+      "types": "./dist/arweave.d.ts"
+    },
+    "./parquet": {
+      "import": "./dist/parquet.js",
+      "types": "./dist/parquet.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "typescript",
+    "types",
+    "arweave",
+    "ar-io",
+    "parquet",
+    "harlequin"
+  ],
+  "author": "The Permaweb Harlequin",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.6"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

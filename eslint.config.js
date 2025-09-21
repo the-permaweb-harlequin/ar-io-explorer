@@ -19,4 +19,16 @@ export default [
       'coverage/**',
     ],
   },
+  {
+    rules: {
+      // Prevent inline styles - use Tailwind classes instead
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'JSXAttribute[name.name="style"]',
+          message: 'Inline styles are not allowed. Use Tailwind CSS classes instead.',
+        },
+      ],
+    },
+  },
 ]
