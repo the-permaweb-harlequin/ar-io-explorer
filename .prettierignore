@@ -1,0 +1,13 @@
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+dist/
+build/
+node_modules/
+.git/
+*.min.js
+*.min.css
+coverage/
+# macOS resource forks
+._*
+.DS_Store

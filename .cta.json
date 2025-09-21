@@ -1,0 +1,11 @@
+{
+  "projectName": "ar-io-explorer",
+  "mode": "code-router",
+  "typescript": true,
+  "tailwind": true,
+  "packageManager": "pnpm",
+  "git": true,
+  "version": 1,
+  "framework": "react-vite",
+  "chosenAddOns": ["eslint", "tanstack-query", "table", "shadcn", "form"]
+}
