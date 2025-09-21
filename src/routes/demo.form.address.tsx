@@ -1,8 +1,7 @@
 import { createRoute } from '@tanstack/react-router'
-
 import { useAppForm } from '../hooks/demo.form'
-
 import type { RootRoute } from '@tanstack/react-router'
+
 
 function AddressForm() {
   const form = useAppForm({

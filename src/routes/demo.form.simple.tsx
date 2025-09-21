@@ -2,7 +2,6 @@ import { createRoute } from '@tanstack/react-router'
 import { z } from 'zod'
 
 import { useAppForm } from '../hooks/demo.form'
-
 import type { RootRoute } from '@tanstack/react-router'
 
 const schema = z.object({

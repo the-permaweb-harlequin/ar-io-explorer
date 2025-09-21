@@ -1,5 +1,5 @@
 import { StrictMode } from 'react'
-import ReactDOM from 'react-dom/client'
+
 import {
   Outlet,
   RouterProvider,
@@ -8,19 +8,17 @@ import {
   createRouter,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-import TanStackQueryDemo from './routes/demo.tanstack-query.tsx'
-import TableDemo from './routes/demo.table.tsx'
-import FormSimpleDemo from './routes/demo.form.simple.tsx'
-import FormAddressDemo from './routes/demo.form.address.tsx'
-
-import Header from './components/Header'
-
-import * as TanStackQueryProvider from './integrations/tanstack-query/root-provider.tsx'
-
-import './styles.css'
-import reportWebVitals from './reportWebVitals.ts'
+import ReactDOM from 'react-dom/client'
 
 import App from './App.tsx'
+import Header from './components/Header'
+import * as TanStackQueryProvider from './integrations/tanstack-query/root-provider.tsx'
+import reportWebVitals from './reportWebVitals.ts'
+import FormAddressDemo from './routes/demo.form.address.tsx'
+import FormSimpleDemo from './routes/demo.form.simple.tsx'
+import TableDemo from './routes/demo.table.tsx'
+import TanStackQueryDemo from './routes/demo.tanstack-query.tsx'
+import './styles.css'
 
 const rootRoute = createRootRoute({
   component: () => (

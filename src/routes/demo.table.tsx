@@ -1,4 +1,6 @@
 import React from 'react'
+
+import { compareItems, rankItem } from '@tanstack/match-sorter-utils'
 import { createRoute } from '@tanstack/react-router'
 import {
   flexRender,
@@ -9,10 +11,9 @@ import {
   sortingFns,
   useReactTable,
 } from '@tanstack/react-table'
-import { compareItems, rankItem } from '@tanstack/match-sorter-utils'
-
 import { makeData } from '../data/demo-table-data'
-
+import type { RankingInfo } from '@tanstack/match-sorter-utils'
+import type { RootRoute } from '@tanstack/react-router'
 import type {
   Column,
   ColumnDef,
@@ -20,9 +21,6 @@ import type {
   FilterFn,
   SortingFn,
 } from '@tanstack/react-table'
-import type { RankingInfo } from '@tanstack/match-sorter-utils'
-
-import type { RootRoute } from '@tanstack/react-router'
 
 import type { Person } from '../data/demo-table-data'
 

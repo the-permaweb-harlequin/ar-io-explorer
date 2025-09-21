@@ -160,10 +160,10 @@ npm install @tanstack/router-plugin -D
 From there you need to update your `vite.config.js` file to use the plugin:
 
 ```ts
-import { defineConfig } from 'vite'
-import viteReact from '@vitejs/plugin-react'
-import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 import tailwindcss from '@tailwindcss/vite'
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
+import viteReact from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -198,8 +198,8 @@ Next up you'll need to move your home route code into `src/routes/index.tsx`
 ```tsx
 import { createFileRoute } from '@tanstack/react-router'
 
-import logo from '../logo.svg'
 import '../App.css'
+import logo from '../logo.svg'
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -247,14 +247,14 @@ Finally the `src/main.tsx` file can be simplified down to this:
 
 ```tsx
 import { StrictMode } from 'react'
-import ReactDOM from 'react-dom/client'
-import { RouterProvider, createRouter } from '@tanstack/react-router'
 
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+import ReactDOM from 'react-dom/client'
+
+import reportWebVitals from './reportWebVitals.ts'
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
-
 import './styles.css'
-import reportWebVitals from './reportWebVitals.ts'
 
 // Create a new router instance
 const router = createRouter({
@@ -422,6 +422,7 @@ Now let's create a simple counter in the `src/App.tsx` file as a demonstration.
 ```tsx
 import { useStore } from '@tanstack/react-store'
 import { Store } from '@tanstack/store'
+
 import './App.css'
 
 const countStore = new Store(0)
@@ -446,7 +447,8 @@ Let's check this out by doubling the count using derived state.
 
 ```tsx
 import { useStore } from '@tanstack/react-store'
-import { Store, Derived } from '@tanstack/store'
+import { Derived, Store } from '@tanstack/store'
+
 import './App.css'
 
 const countStore = new Store(0)

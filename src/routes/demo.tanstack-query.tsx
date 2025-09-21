@@ -1,6 +1,5 @@
-import { createRoute } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
-
+import { createRoute } from '@tanstack/react-router'
 import type { RootRoute } from '@tanstack/react-router'
 
 function TanStackQueryDemo() {

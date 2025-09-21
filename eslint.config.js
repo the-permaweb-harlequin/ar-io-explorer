@@ -1,5 +1,4 @@
 //  @ts-check
-
 import { tanstackConfig } from '@tanstack/eslint-config'
 
 export default [
@@ -14,7 +13,9 @@ export default [
       'build/**',
       // Dependencies
       'node_modules/**',
-      // Other
+      // Config files
+      'commitlint.config.js',
+      // Test coverage
       'coverage/**',
     ],
   },
