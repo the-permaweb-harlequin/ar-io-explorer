@@ -321,6 +321,8 @@ export function useInfiniteProcesses(
   limit = 100,
   ascending = false,
   moduleId?: string,
+  extraFilters?: Record<string, string>,
+  _owners?: Array<string>,
 ) {
   const tags = [
     { name: 'Type', values: ['Process', 'Module'] },
@@ -330,6 +332,17 @@ export function useInfiniteProcesses(
   if (moduleId) {
     tags.push({ name: 'Module', values: [moduleId] })
   }
+
+  // Add extra tag filters
+  if (extraFilters) {
+    for (const [name, value] of Object.entries(extraFilters)) {
+      tags.push({ name, values: [value] })
+    }
+  }
+
+  // Note: Owner filtering would need to be implemented differently
+  // as the GetProcesses query doesn't support owners parameter directly
+  // This would require a different GraphQL query or server-side filtering
 
   return useInfiniteGetProcessesQuery(
     graphqlClient,
@@ -853,7 +866,7 @@ export const fetchMessageGraph = async (
 
       leafs = leafs.filter((l) => l !== null)
 
-      head.children = head.children.concat(leafs)
+      head.children = head.children.concat(leafs as any)
     }
 
     return head

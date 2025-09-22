@@ -7,15 +7,6 @@ import { FilterModal, type FilterTag } from '@/components/FilterModal'
 import { FilterTags } from '@/components/FilterTags'
 import { InfiniteTable } from '@/components/InfiniteTable'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { formatAddressForDisplay } from '@/lib/address-utils'
 import {
   parseAoMessage,
@@ -45,8 +36,8 @@ export function MessagesTable({
   entityId,
   defaultQueryType = 'all',
 }: MessagesTableProps) {
-  const [queryType, setQueryType] = useState<MessageQueryType>(defaultQueryType)
-  const [currentEntityId, setCurrentEntityId] = useState(entityId || '')
+  const [queryType] = useState<MessageQueryType>(defaultQueryType)
+  const [currentEntityId] = useState(entityId || '')
   const [actionFilter, setActionFilter] = useState('')
   const [typeFilter, setTypeFilter] = useState('')
   const [advancedFilters, setAdvancedFilters] = useState<Array<FilterTag>>([])

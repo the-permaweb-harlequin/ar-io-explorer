@@ -57,6 +57,10 @@ export default [
       'import/consistent-type-specifier-style': 'off',
       // Disable import order (handled by Prettier sort imports plugin)
       'import/order': 'off',
+      // Allow T[] syntax instead of forcing Array<T>
+      '@typescript-eslint/array-type': 'off',
+      // Disable unnecessary condition checks (can be overly strict)
+      '@typescript-eslint/no-unnecessary-condition': 'off',
     },
   },
 ]

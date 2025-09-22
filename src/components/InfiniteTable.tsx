@@ -1,16 +1,16 @@
 import { useEffect, useMemo } from 'react'
 
+import { type UseInfiniteQueryResult } from '@tanstack/react-query'
 import {
   type ColumnDef,
-  type SortingState,
   type OnChangeFn,
   type RowSelectionState,
+  type SortingState,
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { type UseInfiniteQueryResult } from '@tanstack/react-query'
 import { ChevronDown, ChevronUp, Loader2 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -110,7 +110,7 @@ export function InfiniteTable<TData>({
     return (
       <div className="flex h-64 items-center justify-center">
         <div className="text-center">
-          <p className="text-destructive font-medium">{errorMessage}</p>
+          <p className="font-medium text-destructive">{errorMessage}</p>
           <Button
             variant="outline"
             size="sm"
@@ -141,7 +141,7 @@ export function InfiniteTable<TData>({
           <table className="w-full">
             <thead>
               {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id} className="border-b bg-muted/50">
+                <tr key={headerGroup.id} className="bg-muted/50 border-b">
                   {headerGroup.headers.map((header) => (
                     <th
                       key={header.id}
@@ -174,7 +174,7 @@ export function InfiniteTable<TData>({
                               />
                               <ChevronDown
                                 className={cn(
-                                  'h-3 w-3 -mt-1',
+                                  '-mt-1 h-3 w-3',
                                   header.column.getIsSorted() === 'desc'
                                     ? 'text-foreground'
                                     : 'text-muted-foreground/50',
@@ -194,7 +194,7 @@ export function InfiniteTable<TData>({
                 <tr
                   key={row.id}
                   className={cn(
-                    'border-b transition-colors hover:bg-muted/50',
+                    'hover:bg-muted/50 border-b transition-colors',
                     enableRowSelection && row.getIsSelected() && 'bg-muted',
                   )}
                 >
@@ -218,7 +218,7 @@ export function InfiniteTable<TData>({
         <div className="flex items-center justify-center py-4">
           <div className="flex items-center space-x-2">
             <Loader2 className="h-4 w-4 animate-spin" />
-            <span className="text-muted-foreground text-sm">
+            <span className="text-sm text-muted-foreground">
               Loading more...
             </span>
           </div>
@@ -241,9 +241,7 @@ export function InfiniteTable<TData>({
       {/* End of data indicator */}
       {!query.hasNextPage && data.length > 0 && (
         <div className="flex justify-center py-4">
-          <p className="text-muted-foreground text-sm">
-            No more data to load
-          </p>
+          <p className="text-sm text-muted-foreground">No more data to load</p>
         </div>
       )}
 
