@@ -11,3 +11,6 @@ count.txt
 
 # Test coverage
 coverage/
+
+# Generated GraphQL types
+src/generated/

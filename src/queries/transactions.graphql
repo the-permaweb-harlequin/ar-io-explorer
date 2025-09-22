@@ -1,0 +1,55 @@
+query GetTransactionsByTag($tags: [TagFilter!]!, $first: Int, $after: String) {
+  transactions(
+    tags: $tags
+    first: $first
+    after: $after
+    sort: HEIGHT_DESC
+  ) {
+    count
+    pageInfo {
+      hasNextPage
+    }
+    edges {
+      cursor
+      node {
+        id
+        owner {
+          address
+        }
+        tags {
+          name
+          value
+        }
+        block {
+          height
+          timestamp
+        }
+        data {
+          size
+          type
+        }
+      }
+    }
+  }
+}
+
+query GetTransactionById($id: ID!) {
+  transaction(id: $id) {
+    id
+    owner {
+      address
+    }
+    tags {
+      name
+      value
+    }
+    block {
+      height
+      timestamp
+    }
+    data {
+      size
+      type
+    }
+  }
+}

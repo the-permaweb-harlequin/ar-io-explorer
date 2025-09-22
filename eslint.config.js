@@ -18,6 +18,8 @@ export default [
       'node_modules/**',
       // Packages (monorepo)
       'packages/**',
+      // Generated files
+      'src/generated/**',
       // Config files
       'commitlint.config.js',
       'eslint.config.js',
