@@ -12,15 +12,15 @@ export function TopNavbar() {
   const setSearchQuery = useAppStore((state) => state.setSearchQuery)
 
   return (
-    <header className="border-color-border bg-background flex h-16 items-center justify-between border-b px-6">
+    <header className="border-color-border flex h-16 items-center justify-between border-b bg-background px-6">
       {/* Search Bar */}
       <div className="flex flex-1 items-center space-x-4">
         <div className="relative max-w-md flex-1">
-          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Search transactions, blocks, addresses..."
-            className="pr-4 pl-10"
+            className="pl-10 pr-4"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />

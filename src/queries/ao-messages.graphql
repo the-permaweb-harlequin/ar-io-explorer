@@ -1,0 +1,410 @@
+# Fragment for common message fields
+fragment MessageFields on TransactionConnection {
+  count
+  pageInfo {
+    hasNextPage
+  }
+  edges {
+    cursor
+    node {
+      id
+      owner {
+        address
+        key
+      }
+      recipient
+      tags {
+        name
+        value
+      }
+      block {
+        height
+        timestamp
+      }
+      data {
+        size
+        type
+      }
+      fee {
+        winston
+        ar
+      }
+      quantity {
+        winston
+        ar
+      }
+      bundledIn {
+        id
+      }
+      ingested_at
+    }
+  }
+}
+
+# Outgoing messages query
+query GetOutgoingMessages(
+  $entityId: String!
+  $limit: Int!
+  $sortOrder: SortOrder!
+  $cursor: String
+  $isProcess: Boolean = false
+) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    ingested_at: { min: 1696107600 }
+    tags: [{ name: "Data-Protocol", values: ["ao"] }]
+    owners: [$entityId]
+  ) @skip(if: $isProcess) {
+    ...MessageFields
+  }
+
+  processTransactions: transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    ingested_at: { min: 1696107600 }
+    tags: [
+      { name: "From-Process", values: [$entityId] }
+      { name: "Data-Protocol", values: ["ao"] }
+    ]
+  ) @include(if: $isProcess) {
+    ...MessageFields
+  }
+}
+
+# Incoming messages query
+query GetIncomingMessages(
+  $entityId: String!
+  $limit: Int!
+  $sortOrder: SortOrder!
+  $cursor: String
+) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    recipients: [$entityId]
+    tags: [{ name: "Data-Protocol", values: ["ao"] }]
+    ingested_at: { min: 1696107600 }
+  ) {
+    ...MessageFields
+  }
+}
+
+# Token transfers query
+query GetTokenTransfers(
+  $entityId: String!
+  $limit: Int!
+  $sortOrder: SortOrder!
+  $cursor: String
+) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    tags: [
+      { name: "Action", values: ["Credit-Notice", "Debit-Notice"] }
+      { name: "Data-Protocol", values: ["ao"] }
+    ]
+    recipients: [$entityId]
+    ingested_at: { min: 1696107600 }
+  ) {
+    ...MessageFields
+  }
+}
+
+# Spawned processes query
+query GetSpawnedProcesses(
+  $entityId: String!
+  $limit: Int!
+  $sortOrder: SortOrder!
+  $cursor: String
+  $isProcess: Boolean = false
+) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    ingested_at: { min: 1696107600 }
+    tags: [
+      { name: "Data-Protocol", values: ["ao"] }
+      { name: "Type", values: ["Process"] }
+    ]
+    owners: [$entityId]
+  ) @skip(if: $isProcess) {
+    ...MessageFields
+  }
+
+  processTransactions: transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    ingested_at: { min: 1696107600 }
+    tags: [
+      { name: "From-Process", values: [$entityId] }
+      { name: "Type", values: ["Process"] }
+      { name: "Data-Protocol", values: ["ao"] }
+    ]
+  ) @include(if: $isProcess) {
+    ...MessageFields
+  }
+}
+
+# Get processes query
+query GetProcesses(
+  $limit: Int!
+  $sortOrder: SortOrder!
+  $cursor: String
+  $tags: [TagFilter!]!
+) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    tags: $tags
+    ingested_at: { min: 1696107600 }
+  ) {
+    ...MessageFields
+  }
+}
+
+# Get modules query
+query GetModules($limit: Int!, $sortOrder: SortOrder!, $cursor: String) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    tags: [
+      { name: "Type", values: ["Module"] }
+      { name: "Data-Protocol", values: ["ao"] }
+    ]
+    ingested_at: { min: 1696107600 }
+  ) {
+    ...MessageFields
+  }
+}
+
+# Resulting messages query
+query GetResultingMessages(
+  $fromProcessId: String!
+  $msgRefs: [String!]!
+  $limit: Int!
+  $sortOrder: SortOrder!
+  $cursor: String
+  $useOldRefSymbol: Boolean = false
+) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    tags: [
+      { name: "Reference", values: $msgRefs }
+      { name: "From-Process", values: [$fromProcessId] }
+      { name: "Data-Protocol", values: ["ao"] }
+    ]
+    ingested_at: { min: 1696107600 }
+  ) @skip(if: $useOldRefSymbol) {
+    ...MessageFields
+  }
+
+  oldRefTransactions: transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    tags: [
+      { name: "Ref_", values: $msgRefs }
+      { name: "From-Process", values: [$fromProcessId] }
+      { name: "Data-Protocol", values: ["ao"] }
+    ]
+    ingested_at: { min: 1696107600 }
+  ) @include(if: $useOldRefSymbol) {
+    ...MessageFields
+  }
+}
+
+# Linked messages query
+query GetLinkedMessages(
+  $messageId: String!
+  $limit: Int!
+  $sortOrder: SortOrder!
+  $cursor: String
+) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    tags: [
+      { name: "Pushed-For", values: [$messageId] }
+      { name: "Data-Protocol", values: ["ao"] }
+    ]
+    ingested_at: { min: 1696107600 }
+  ) {
+    ...MessageFields
+  }
+}
+
+# Messages for block query
+query GetMessagesForBlock(
+  $blockHeight: Int!
+  $limit: Int!
+  $sortOrder: SortOrder!
+  $cursor: String
+) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    block: { min: $blockHeight, max: $blockHeight }
+    tags: [{ name: "Data-Protocol", values: ["ao"] }]
+    ingested_at: { min: 1696107600 }
+  ) {
+    ...MessageFields
+  }
+}
+
+# All messages query
+query GetAllMessages(
+  $limit: Int!
+  $sortOrder: SortOrder!
+  $cursor: String
+  $tags: [TagFilter!]!
+  $recipients: [String!]
+  $owners: [String!]
+) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    ingested_at: { min: 1696107600 }
+    tags: $tags
+    recipients: $recipients
+    owners: $owners
+  ) {
+    ...MessageFields
+  }
+}
+
+# Eval messages query
+query GetEvalMessages(
+  $entityId: String!
+  $limit: Int!
+  $sortOrder: SortOrder!
+  $cursor: String
+) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    tags: [
+      { name: "Action", values: ["Eval"] }
+      { name: "Data-Protocol", values: ["ao"] }
+    ]
+    recipients: [$entityId]
+    ingested_at: { min: 1696107600 }
+  ) {
+    ...MessageFields
+  }
+}
+
+# Network stats query
+query GetNetworkStats {
+  transactions(
+    sort: HEIGHT_DESC
+    first: 1
+    owners: ["yqRGaljOLb2IvKkYVa87Wdcc8m_4w6FI58Gej05gorA"]
+    recipients: ["vdpaKV_BQNISuDgtZpLDfDlMJinKHqM3d2NWd3bzeSk"]
+    tags: [
+      { name: "Action", values: ["Update-Stats"] }
+      { name: "Data-Protocol", values: ["ao"] }
+    ]
+  ) {
+    ...MessageFields
+  }
+}
+
+# Owned domains query
+query GetOwnedDomainsHistory(
+  $entityId: String!
+  $limit: Int!
+  $sortOrder: SortOrder!
+  $cursor: String
+) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    tags: [
+      { name: "Data-Protocol", values: ["ao"] }
+      { name: "Action", values: ["Buy-Record-Notice"] }
+    ]
+    recipients: [$entityId]
+    ingested_at: { min: 1696107600 }
+  ) {
+    ...MessageFields
+  }
+}
+
+# Set records query
+query GetSetRecordsToEntityId(
+  $entityId: String!
+  $limit: Int!
+  $sortOrder: SortOrder!
+  $cursor: String
+) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    tags: [
+      { name: "Data-Protocol", values: ["ao"] }
+      { name: "Action", values: ["Set-Record"] }
+      { name: "Transaction-Id", values: [$entityId] }
+    ]
+    owners: [$entityId]
+    ingested_at: { min: 1696107600 }
+  ) {
+    ...MessageFields
+  }
+}
+
+# Resulting messages by IDs query (for message graph functionality)
+query GetResultingMessagesByIds(
+  $recipient: String!
+  $msgRefs: [String!]!
+  $limit: Int!
+  $sortOrder: SortOrder!
+  $cursor: String
+  $fromProcess: String
+  $actions: [String!]
+  $useOldRefSymbol: Boolean = false
+) {
+  transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    recipients: [$recipient]
+    tags: [
+      { name: "Reference", values: $msgRefs }
+      { name: "Data-Protocol", values: ["ao"] }
+    ]
+    ingested_at: { min: 1696107600 }
+  ) @skip(if: $useOldRefSymbol) {
+    ...MessageFields
+  }
+
+  oldRefTransactions: transactions(
+    sort: $sortOrder
+    first: $limit
+    after: $cursor
+    recipients: [$recipient]
+    tags: [
+      { name: "Ref_", values: $msgRefs }
+      { name: "Data-Protocol", values: ["ao"] }
+    ]
+    ingested_at: { min: 1696107600 }
+  ) @include(if: $useOldRefSymbol) {
+    ...MessageFields
+  }
+}

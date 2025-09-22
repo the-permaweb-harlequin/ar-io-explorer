@@ -150,12 +150,12 @@ export function SettingInput({
       case 'unreachable':
         return <WifiOff className="h-4 w-4 text-orange-500" />
       case 'invalid':
-        return <AlertCircle className="text-destructive h-4 w-4" />
+        return <AlertCircle className="h-4 w-4 text-destructive" />
       default:
         return isValidFormat ? (
           <Wifi className="h-4 w-4 text-gray-400" />
         ) : (
-          <AlertCircle className="text-destructive h-4 w-4" />
+          <AlertCircle className="h-4 w-4 text-destructive" />
         )
     }
   }
@@ -178,11 +178,11 @@ export function SettingInput({
         )
       case 'invalid':
         return (
-          <p className="text-destructive text-xs">Please enter a valid URL</p>
+          <p className="text-xs text-destructive">Please enter a valid URL</p>
         )
       default:
         return !isValidFormat ? (
-          <p className="text-destructive text-xs">Please enter a valid URL</p>
+          <p className="text-xs text-destructive">Please enter a valid URL</p>
         ) : null
     }
   }
@@ -191,7 +191,7 @@ export function SettingInput({
   const hasChanged = value !== originalValue
 
   return (
-    <div className="border-border space-y-2 rounded-lg border p-3">
+    <div className="space-y-2 rounded-lg border border-border p-3">
       <div className="flex items-center justify-between">
         <Label htmlFor={id} className="text-sm font-medium">
           {label}
@@ -225,7 +225,7 @@ export function SettingInput({
             }`}
           />
           {value && (
-            <div className="absolute top-1/2 right-2 -translate-y-1/2">
+            <div className="absolute right-2 top-1/2 -translate-y-1/2">
               {getValidationIcon()}
             </div>
           )}
@@ -259,7 +259,7 @@ export function SettingInput({
       </div>
 
       <div className="flex items-center justify-between">
-        <p className="text-muted-foreground text-xs">{description}</p>
+        <p className="text-xs text-muted-foreground">{description}</p>
 
         {/* Status Indicator */}
         <div className="flex items-center space-x-1">
@@ -270,13 +270,13 @@ export function SettingInput({
             </div>
           )}
           {status === 'error' && (
-            <div className="text-destructive flex items-center text-xs">
+            <div className="flex items-center text-xs text-destructive">
               <AlertCircle className="mr-1 h-3 w-3" />
               Error
             </div>
           )}
           {hasChanged && status === 'idle' && (
-            <div className="text-muted-foreground text-xs">Unsaved changes</div>
+            <div className="text-xs text-muted-foreground">Unsaved changes</div>
           )}
         </div>
       </div>

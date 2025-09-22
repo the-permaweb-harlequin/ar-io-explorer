@@ -62,18 +62,18 @@ export function Sidebar() {
   return (
     <div
       className={cn(
-        'border-border bg-background text-foreground flex h-full flex-col border-r transition-all duration-300',
+        'flex h-full flex-col border-r border-border bg-background text-foreground transition-all duration-300',
         sidebarCollapsed ? 'w-16' : 'w-64',
       )}
     >
       {/* Sidebar Header */}
-      <div className="border-border flex h-16 items-center justify-between border-b px-4">
+      <div className="flex h-16 items-center justify-between border-b border-border px-4">
         {!sidebarCollapsed && (
           <div className="flex items-center space-x-2">
-            <div className="bg-primary flex h-8 w-8 items-center justify-center rounded-lg">
-              <Database className="text-primary-foreground h-4 w-4" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+              <Database className="h-4 w-4 text-primary-foreground" />
             </div>
-            <span className="overflow-hidden text-lg font-semibold text-ellipsis whitespace-nowrap">
+            <span className="overflow-hidden text-ellipsis whitespace-nowrap text-lg font-semibold">
               AR.IO Explorer
             </span>
           </div>
@@ -97,7 +97,7 @@ export function Sidebar() {
         {navigationSections.map((section) => (
           <div key={section.name} className="space-y-1">
             {!sidebarCollapsed && (
-              <h3 className="text-muted-foreground px-3 text-xs font-semibold tracking-wider uppercase">
+              <h3 className="px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 {section.name}
               </h3>
             )}
@@ -109,7 +109,7 @@ export function Sidebar() {
                     key={item.name}
                     to={item.href}
                     className={cn(
-                      'hover:bg-accent hover:text-accent-foreground flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                      'flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground',
                       isActive
                         ? 'bg-accent text-accent-foreground'
                         : 'text-muted-foreground',
@@ -129,9 +129,9 @@ export function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="border-border border-t p-4">
+      <div className="border-t border-border p-4">
         {!sidebarCollapsed && (
-          <div className="text-muted-foreground text-xs">
+          <div className="text-xs text-muted-foreground">
             <p>AR.IO Explorer v1.0.0</p>
             <p>Harlequin Toolkit</p>
           </div>

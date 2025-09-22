@@ -7,7 +7,7 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <div className="bg-background flex h-screen">
+    <div className="flex h-screen bg-background">
       {/* Sidebar */}
       <Sidebar />
 

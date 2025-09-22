@@ -1,10 +1,5 @@
 query GetTransactionsByTag($tags: [TagFilter!]!, $first: Int, $after: String) {
-  transactions(
-    tags: $tags
-    first: $first
-    after: $after
-    sort: HEIGHT_DESC
-  ) {
+  transactions(tags: $tags, first: $first, after: $after, sort: HEIGHT_DESC) {
     count
     pageInfo {
       hasNextPage

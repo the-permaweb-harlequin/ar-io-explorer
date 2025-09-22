@@ -119,16 +119,16 @@ export function Settings() {
   return (
     <div className="mx-auto max-w-6xl space-y-4 p-4">
       {/* Header */}
-      <div className="border-border border-b pb-4">
-        <h1 className="text-foreground text-2xl font-bold">Settings</h1>
-        <p className="text-muted-foreground mt-1">
+      <div className="border-b border-border pb-4">
+        <h1 className="text-2xl font-bold text-foreground">Settings</h1>
+        <p className="mt-1 text-muted-foreground">
           Configure application-wide endpoints and services
         </p>
       </div>
 
       {/* Configuration Form */}
       <div className="space-y-4">
-        <h2 className="text-foreground text-lg font-semibold">
+        <h2 className="text-lg font-semibold text-foreground">
           Service Endpoints
         </h2>
 
@@ -152,7 +152,7 @@ export function Settings() {
       </div>
 
       {/* Global Action Buttons */}
-      <div className="border-border flex items-center justify-center border-t pt-4">
+      <div className="flex items-center justify-center border-t border-border pt-4">
         <Button
           variant="outline"
           onClick={handleResetToDefaults}
@@ -165,8 +165,8 @@ export function Settings() {
 
       {/* Info Section */}
       <div className="bg-muted/50 space-y-2 rounded-lg p-3">
-        <h3 className="text-foreground font-medium">About These Settings</h3>
-        <ul className="text-muted-foreground space-y-1 text-sm">
+        <h3 className="font-medium text-foreground">About These Settings</h3>
+        <ul className="space-y-1 text-sm text-muted-foreground">
           <li>
             • Settings are automatically saved to your browser's local storage
           </li>

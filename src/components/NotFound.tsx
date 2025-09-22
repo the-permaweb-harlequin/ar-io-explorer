@@ -108,15 +108,15 @@ export function NotFound() {
   ]
 
   return (
-    <div className="bg-background flex min-h-screen items-center justify-center p-4">
+    <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <div className="mx-auto max-w-4xl text-center">
         {/* 404 Header */}
         <div className="mb-8">
-          <h1 className="text-primary mb-4 text-8xl font-bold">404</h1>
-          <h2 className="text-foreground mb-2 text-3xl font-semibold">
+          <h1 className="mb-4 text-8xl font-bold text-primary">404</h1>
+          <h2 className="mb-2 text-3xl font-semibold text-foreground">
             Page Not Found
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-lg text-muted-foreground">
             The page you're looking for doesn't exist or has been moved.
           </p>
         </div>
@@ -140,7 +140,7 @@ export function NotFound() {
 
         {/* Suggested Pages */}
         <div className="text-left">
-          <h3 className="text-foreground mb-6 text-center text-xl font-semibold">
+          <h3 className="mb-6 text-center text-xl font-semibold text-foreground">
             Explore These Pages Instead
           </h3>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -150,17 +150,17 @@ export function NotFound() {
                 <Link
                   key={page.path}
                   to={page.path}
-                  className="border-border bg-card hover:bg-accent block cursor-pointer rounded-lg border p-4 transition-colors"
+                  className="block cursor-pointer rounded-lg border border-border bg-card p-4 transition-colors hover:bg-accent"
                 >
                   <div className="flex items-start space-x-3">
                     <div className="mt-1 flex-shrink-0">
-                      <Icon className="text-primary h-5 w-5" />
+                      <Icon className="h-5 w-5 text-primary" />
                     </div>
                     <div>
-                      <h4 className="text-card-foreground mb-1 font-medium">
+                      <h4 className="mb-1 font-medium text-card-foreground">
                         {page.title}
                       </h4>
-                      <p className="text-muted-foreground text-sm">
+                      <p className="text-sm text-muted-foreground">
                         {page.description}
                       </p>
                     </div>
@@ -172,8 +172,8 @@ export function NotFound() {
         </div>
 
         {/* Footer */}
-        <div className="border-border mt-12 border-t pt-8">
-          <p className="text-muted-foreground text-sm">
+        <div className="mt-12 border-t border-border pt-8">
+          <p className="text-sm text-muted-foreground">
             Need help? Check out our{' '}
             <Link to="/settings" className="text-primary hover:underline">
               settings
