@@ -26,6 +26,9 @@ importers:
       '@graphql-codegen/typescript-react-query':
         specifier: ^6.1.1
         version: 6.1.1(encoding@0.1.13)(graphql@15.10.1)
+      '@permaweb/aoconnect':
+        specifier: ^0.0.90
+        version: 0.0.90(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@project-kardeshev/ao-wallet-kit':
         specifier: ^1.0.3
         version: 1.0.3(@tanstack/query-core@5.89.0)(@types/react@18.3.24)(axios@1.12.2)(bufferutil@4.0.9)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)(use-sync-external-store@1.5.0(react@18.3.1))(utf-8-validate@5.0.10)(warp-arbundles@1.0.4)(webextension-polyfill@0.10.0)(zod@3.25.76)
@@ -86,6 +89,9 @@ importers:
       idb:
         specifier: ^8.0.3
         version: 8.0.3
+      js-sha3:
+        specifier: ^0.9.3
+        version: 0.9.3
       lucide-react:
         specifier: ^0.476.0
         version: 0.476.0(react@18.3.1)
@@ -1017,6 +1023,9 @@ packages:
 
   '@dabh/diagnostics@2.0.3':
     resolution: {integrity: sha512-hrlQOIi7hAfzsMqlGSFyVucrx38O+j6wiGOf//H2ecvIEqYN4ADBSS2iLMh5UFyDunCNniUIPk/q3riFv45xRA==}
+
+  '@dha-team/arbundles@1.0.3':
+    resolution: {integrity: sha512-/XelOo5V/1o1M8VchCQ+F7N5kxwirWh5jD5zg1KECaV80Qld6aKBSgG19VLlBsRUXbRUfjM+LDRPJm9Hjfmycg==}
 
   '@dha-team/arbundles@1.0.4':
     resolution: {integrity: sha512-T/4pv6bosp4caV32EubHTqDzLAqL6481Bsqd348JO0h+HSaMysloY/pFSLwZf9U3IvkJngIZ4njrYQUkjSkkwA==}
@@ -2127,6 +2136,13 @@ packages:
   '@permaweb/aoconnect@0.0.57':
     resolution: {integrity: sha512-l1+47cZuQ8pOIMOdRXymcegCmefXjqR8Bc2MY6jIzWv9old/tG6mfCue2W1QviGyhjP3zEVQgr7YofkY2lq35Q==}
     engines: {node: '>=18', yarn: please-use-npm}
+
+  '@permaweb/aoconnect@0.0.90':
+    resolution: {integrity: sha512-VKEkwKV5Lv6q2pai38gz/ngcRML4iApWsJc5B8X8ow9fJIXnd9UK8y0HMbrKUF/VB5Eb8r8lJhDr76yiL6QWAA==}
+    engines: {node: '>=18'}
+
+  '@permaweb/protocol-tag-utils@0.0.2':
+    resolution: {integrity: sha512-2IiKu71W7pkHKIzxabCGQ5q8DSppZaE/sPcPF2hn+OWwfe04M7b5X5LHRXQNPRuxHWuioieGdPQb3F7apOlffQ==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -5110,6 +5126,9 @@ packages:
     resolution: {integrity: sha512-ztqyC3kLto0e9WbNp0aeP+M3kTt+nbaIveGmUxAtZa+8iFgKLUOD4YKM5j+f3QD89bra7UeumolZHKuOXnTmeQ==}
     engines: {node: '>=8'}
 
+  http-message-signatures@1.0.4:
+    resolution: {integrity: sha512-gavCQWnxHFg0BVlKs6CmYK7hNSH1o0x0mHTC68yBAHYOYuTVXPv52mEE7QuT5TenfiagTdOa/zPJzen4lEX7Rg==}
+
   http-proxy-agent@5.0.0:
     resolution: {integrity: sha512-n2hY8YdoRE1i7r6M0w9DIw5GgZN0G25P8zLCRQ8rjXtTU3vsNFBI/vWK/UIeE6g5MUUz6avwAPXmL6Fy9D/90w==}
     engines: {node: '>= 6'}
@@ -5438,6 +5457,9 @@ packages:
 
   js-sha3@0.8.0:
     resolution: {integrity: sha512-gF1cRrHhIzNfToc802P800N8PpXS+evLLXfsVpowqmAFR9uwbi89WvXg2QspOmXL8QL86J4T1EpFu+yUkwJY3Q==}
+
+  js-sha3@0.9.3:
+    resolution: {integrity: sha512-BcJPCQeLg6WjEx3FE591wVAevlli8lxsxm9/FzV4HXkV49TmBH38Yvrpce6fjbADGMKFrBMGTqrVz3qPIZ88Gg==}
 
   js-sha512@0.8.0:
     resolution: {integrity: sha512-PWsmefG6Jkodqt+ePTvBZCSMFgN7Clckjd0O7su3I0+BW2QWUTJNzjktHsztGLhncP2h8mcF9V9Y2Ha59pAViQ==}
@@ -7076,6 +7098,14 @@ packages:
   strip-literal@3.0.0:
     resolution: {integrity: sha512-TcccoMhJOM3OebGhSBEmp3UZ2SfDMZUEBdRA/9ynfLi8yYajyWX3JiXArcJt4Umh4vISpspkQIY8ZZoCqjbviA==}
 
+  structured-headers@1.0.1:
+    resolution: {integrity: sha512-QYBxdBtA4Tl5rFPuqmbmdrS9kbtren74RTJTcs0VSQNVV5iRhJD4QlYTLD0+81SBwUQctjEQzjTRI3WG4DzICA==}
+    engines: {node: '>= 14', npm: '>=6'}
+
+  structured-headers@2.0.2:
+    resolution: {integrity: sha512-IUul56vVHuMg2UxWhwDj9zVJE6ztYEQQkynr1FQ/NydPhivtk5+Qb2N1RS36owEFk2fNUriTguJ2R7htRObcdA==}
+    engines: {node: '>=18', npm: '>=6'}
+
   stubs@3.0.0:
     resolution: {integrity: sha512-PdHt7hHUJKxvTCgbKX9C1V/ftOcjJQgz8BZwNfV5c4B6dcGqlpelTbJ999jBGZ2jYiPAwcX5dP6oBwVlBlUbxw==}
 
@@ -8104,7 +8134,7 @@ snapshots:
       '@permaweb/aoconnect': 0.0.57
       '@solana/web3.js': 1.98.4(bufferutil@4.0.9)(encoding@0.1.13)(typescript@5.9.2)(utf-8-validate@5.0.10)
       arweave: 1.15.7
-      axios: 1.12.2
+      axios: 1.12.2(debug@4.4.3)
       bignumber.js: 9.3.1
       bs58: 5.0.0
       commander: 12.1.0
@@ -9196,7 +9226,7 @@ snapshots:
       '@cosmjs/socket': 0.33.1(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@cosmjs/stream': 0.33.1
       '@cosmjs/utils': 0.33.1
-      axios: 1.12.2
+      axios: 1.12.2(debug@4.4.3)
       readonly-date: 1.0.0
       xstream: 11.14.0
     transitivePeerDependencies:
@@ -9240,6 +9270,31 @@ snapshots:
       colorspace: 1.1.4
       enabled: 2.0.0
       kuler: 2.0.0
+
+  '@dha-team/arbundles@1.0.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
+    dependencies:
+      '@ethersproject/bytes': 5.8.0
+      '@ethersproject/hash': 5.8.0
+      '@ethersproject/providers': 5.7.2(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@ethersproject/signing-key': 5.8.0
+      '@ethersproject/transactions': 5.8.0
+      '@ethersproject/wallet': 5.7.0
+      '@noble/ed25519': 1.6.1
+      arweave: 1.15.7
+      base64url: 3.0.1
+      bs58: 4.0.1
+      keccak: 3.0.4
+      secp256k1: 5.0.0
+    optionalDependencies:
+      '@randlabs/myalgo-connect': 1.1.2
+      algosdk: 1.13.1
+      arweave-stream-tx: 1.1.0(arweave@1.15.7)
+      multistream: 4.1.0
+      tmp-promise: 3.0.2
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
 
   '@dha-team/arbundles@1.0.4(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
@@ -10871,7 +10926,7 @@ snapshots:
       '@google-cloud/kms': 4.5.0(encoding@0.1.13)
       arweave: 1.15.7
       arweave-mnemonic-keys: 0.0.9
-      axios: 1.12.2
+      axios: 1.12.2(debug@4.4.3)
       base64-js: 1.5.1
       buffer: 6.0.3
       extend: 3.0.2
@@ -10908,6 +10963,28 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@permaweb/aoconnect@0.0.90(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
+    dependencies:
+      '@dha-team/arbundles': 1.0.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@permaweb/ao-scheduler-utils': 0.0.29
+      '@permaweb/protocol-tag-utils': 0.0.2
+      axios: 1.12.2(debug@4.4.3)
+      base64url: 3.0.1
+      buffer: 6.0.3
+      debug: 4.4.3
+      http-message-signatures: 1.0.4
+      hyper-async: 1.2.0
+      mnemonist: 0.39.8
+      ramda: 0.30.1
+      structured-headers: 2.0.2
+      zod: 3.25.76
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
+  '@permaweb/protocol-tag-utils@0.0.2': {}
+
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
@@ -10920,7 +10997,7 @@ snapshots:
       '@dha-team/arbundles': 1.0.4(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@permaweb/ao-loader': 0.0.36
       arweave: 1.15.7
-      axios: 1.12.2
+      axios: 1.12.2(debug@4.4.3)
       axios-retry: 4.5.0(axios@1.12.2)
       better-sqlite3: 11.10.0
       eventemitter3: 5.0.1
@@ -13351,7 +13428,7 @@ snapshots:
 
   axios-retry@4.5.0(axios@1.12.2):
     dependencies:
-      axios: 1.12.2
+      axios: 1.12.2(debug@4.4.3)
       is-retry-allowed: 2.2.0
 
   axios-retry@4.5.0(axios@1.7.8):
@@ -13359,9 +13436,9 @@ snapshots:
       axios: 1.7.8
       is-retry-allowed: 2.2.0
 
-  axios@1.12.2:
+  axios@1.12.2(debug@4.4.3):
     dependencies:
-      follow-redirects: 1.15.11
+      follow-redirects: 1.15.11(debug@4.4.3)
       form-data: 4.0.4
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -13369,7 +13446,7 @@ snapshots:
 
   axios@1.7.8:
     dependencies:
-      follow-redirects: 1.15.11
+      follow-redirects: 1.15.11(debug@4.4.3)
       form-data: 4.0.4
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -14681,7 +14758,9 @@ snapshots:
 
   fn.name@1.1.0: {}
 
-  follow-redirects@1.15.11: {}
+  follow-redirects@1.15.11(debug@4.4.3):
+    optionalDependencies:
+      debug: 4.4.3
 
   for-each@0.3.5:
     dependencies:
@@ -15074,6 +15153,10 @@ snapshots:
 
   html-tags@3.3.1: {}
 
+  http-message-signatures@1.0.4:
+    dependencies:
+      structured-headers: 1.0.1
+
   http-proxy-agent@5.0.0:
     dependencies:
       '@tootallnate/once': 2.0.0
@@ -15384,6 +15467,8 @@ snapshots:
     optional: true
 
   js-sha3@0.8.0: {}
+
+  js-sha3@0.9.3: {}
 
   js-sha512@0.8.0:
     optional: true
@@ -17099,6 +17184,10 @@ snapshots:
   strip-literal@3.0.0:
     dependencies:
       js-tokens: 9.0.1
+
+  structured-headers@1.0.1: {}
+
+  structured-headers@2.0.2: {}
 
   stubs@3.0.0: {}
 

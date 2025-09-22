@@ -528,8 +528,8 @@ export function useInfiniteAllMessages(
   limit = 100,
   ascending = false,
   extraFilters?: Record<string, string>,
-  recipients?: string[],
-  owners?: string[],
+  recipients?: Array<string>,
+  owners?: Array<string>,
 ) {
   const tags = [
     {
@@ -851,7 +851,7 @@ export const fetchMessageGraph = async (
         leafs.push(leaf)
       }
 
-      leafs = leafs.filter((l) => l !== null) as Array<MessageTree>
+      leafs = leafs.filter((l) => l !== null)
 
       head.children = head.children.concat(leafs)
     }

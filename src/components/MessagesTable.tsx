@@ -296,7 +296,7 @@ export function MessagesTable({
         {/* Stats */}
         <div className="text-right">
           <div className="text-sm text-muted-foreground">
-            {currentQuery.data?.pages?.[0]?.transactions?.count && (
+            {currentQuery.data?.pages[0]?.transactions?.count && (
               <span>
                 Total:{' '}
                 {currentQuery.data.pages[0].transactions.count.toLocaleString()}{' '}
@@ -305,82 +305,8 @@ export function MessagesTable({
             )}
           </div>
         </div>
-      </div>
 
-      {/* Filters */}
-      <div className="space-y-4">
-        <div className="bg-muted/50 flex flex-wrap items-end gap-4 rounded-lg p-4">
-          {/* Query Type */}
-          <div className="space-y-1">
-            <Label htmlFor="queryType" className="text-xs">
-              Query Type
-            </Label>
-            <Select
-              value={queryType}
-              onValueChange={(value: MessageQueryType) => setQueryType(value)}
-            >
-              <SelectTrigger className="w-fit">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="w-fit">
-                <SelectItem value="all">All Messages</SelectItem>
-                <SelectItem value="incoming">Incoming</SelectItem>
-                <SelectItem value="outgoing">Outgoing</SelectItem>
-                <SelectItem value="tokens">Token Transfers</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Entity ID (for incoming/outgoing/tokens) */}
-          {(queryType === 'incoming' ||
-            queryType === 'outgoing' ||
-            queryType === 'tokens') && (
-            <div className="min-w-64 flex-1 space-y-1">
-              <Label htmlFor="entityId" className="text-xs">
-                Entity ID
-              </Label>
-              <Input
-                id="entityId"
-                value={currentEntityId}
-                onChange={(e) => setCurrentEntityId(e.target.value)}
-                placeholder="Enter Arweave address or process ID"
-                className="font-mono text-sm"
-              />
-            </div>
-          )}
-
-          {/* Action Filter (for all messages) */}
-          {queryType === 'all' && (
-            <div className="space-y-1">
-              <Label htmlFor="actionFilter" className="text-xs">
-                Action
-              </Label>
-              <Input
-                id="actionFilter"
-                value={actionFilter}
-                onChange={(e) => setActionFilter(e.target.value)}
-                placeholder="e.g. Transfer, Eval"
-                className="w-32"
-              />
-            </div>
-          )}
-
-          {/* Type Filter (for all messages) */}
-          {queryType === 'all' && (
-            <div className="space-y-1">
-              <Label htmlFor="typeFilter" className="text-xs">
-                Type
-              </Label>
-              <Input
-                id="typeFilter"
-                value={typeFilter}
-                onChange={(e) => setTypeFilter(e.target.value)}
-                placeholder="e.g. Message, Spawn"
-                className="w-32"
-              />
-            </div>
-          )}
-
+        <div className="bg-muted/50 flex flex-wrap items-end gap-4 rounded-lg pb-4">
           {/* Advanced Filters Button */}
           <Button
             variant="outline"
@@ -388,7 +314,7 @@ export function MessagesTable({
             className="flex items-center space-x-2"
           >
             <Settings className="h-4 w-4" />
-            <span>Advanced</span>
+            <span>Filters</span>
             {advancedFilters.length > 0 && (
               <span className="rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground">
                 {advancedFilters.length}
@@ -396,19 +322,17 @@ export function MessagesTable({
             )}
           </Button>
         </div>
-
-        {/* Filter Tags */}
-        <FilterTags
-          filters={advancedFilters}
-          onRemoveFilter={handleRemoveFilter}
-          onClearAll={handleClearAllFilters}
-          actionFilter={actionFilter}
-          typeFilter={typeFilter}
-          onRemoveActionFilter={() => setActionFilter('')}
-          onRemoveTypeFilter={() => setTypeFilter('')}
-        />
-      </div>
-
+      </div>{' '}
+      {/* Filter Tags */}
+      <FilterTags
+        filters={advancedFilters}
+        onRemoveFilter={handleRemoveFilter}
+        onClearAll={handleClearAllFilters}
+        actionFilter={actionFilter}
+        typeFilter={typeFilter}
+        onRemoveActionFilter={() => setActionFilter('')}
+        onRemoveTypeFilter={() => setTypeFilter('')}
+      />
       {/* Table */}
       <InfiniteTable
         query={currentQuery as any}
@@ -421,7 +345,6 @@ export function MessagesTable({
         enableSorting={true}
         initialSorting={[{ id: 'block.timestamp', desc: !ascending }]}
       />
-
       {/* Filter Modal */}
       <FilterModal
         isOpen={isFilterModalOpen}

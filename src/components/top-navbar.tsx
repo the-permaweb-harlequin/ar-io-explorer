@@ -27,27 +27,28 @@ export function TopNavbar() {
         </div>
 
         {/* Dashboard Link */}
-        <Link to="/">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="flex items-center space-x-2"
-          >
+        <Button
+          variant="ghost"
+          size="sm"
+          className="flex items-center space-x-2"
+          asChild
+        >
+          <Link to="/">
             <Home className="h-4 w-4" />
             <span>Dashboard</span>
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       </div>
 
       {/* Right Side Actions */}
       <div className="flex items-center space-x-4">
         {/* Settings */}
-        <Link to="/settings">
-          <Button variant="ghost" size="sm" className="h-9 w-9 p-0">
+        <Button variant="ghost" size="sm" className="h-9 w-9 p-0" asChild>
+          <Link to="/settings">
             <Settings className="h-4 w-4" />
             <span className="sr-only">Settings</span>
-          </Button>
-        </Link>
+          </Link>
+        </Button>
 
         {/* Theme Toggle */}
         <ThemeToggle />

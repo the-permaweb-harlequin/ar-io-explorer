@@ -22,6 +22,8 @@ import { ThemeProvider } from './components/theme-provider'
 import * as TanStackQueryProvider from './integrations/tanstack-query/root-provider.tsx'
 import reportWebVitals from './reportWebVitals.ts'
 import NotFoundRoute from './routes/404.tsx'
+import MessagesRoute from './routes/messages.tsx'
+import ProcessesRoute from './routes/processes.tsx'
 import SettingsRoute from './routes/settings.tsx'
 import './styles.css'
 
@@ -42,6 +44,8 @@ const indexRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
+  ProcessesRoute(rootRoute),
+  MessagesRoute(rootRoute),
   SettingsRoute(rootRoute),
   NotFoundRoute(rootRoute),
 ])
@@ -57,7 +61,6 @@ const router = createRouter({
   scrollRestoration: true,
   defaultStructuralSharing: true,
   defaultPreloadStaleTime: 0,
-  notFoundRoute: NotFoundRoute(rootRoute),
 })
 
 declare module '@tanstack/react-router' {
