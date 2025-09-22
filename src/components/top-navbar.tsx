@@ -1,54 +1,59 @@
-import { Bell, Search, User } from 'lucide-react'
-import { ConnectButton, useAddress } from '@project-kardeshev/ao-wallet-kit'
+import { ConnectButton } from '@project-kardeshev/ao-wallet-kit'
+import { Link } from '@tanstack/react-router'
+import { Home, Search, Settings } from 'lucide-react'
+
+import { ThemeToggle } from '@/components/theme-toggle'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { ThemeToggle } from '@/components/theme-toggle'
 import { useAppStore } from '@/store/app-store'
 
 export function TopNavbar() {
   const searchQuery = useAppStore((state) => state.searchQuery)
   const setSearchQuery = useAppStore((state) => state.setSearchQuery)
-  const walletAddress = useAddress()
-
-  const getAddressDisplay = (address: string) => {
-    return `${address.slice(0, 6)}...${address.slice(-4)}`
-  }
 
   return (
-    <header className="flex h-16 items-center justify-between border-b bg-background px-6">
+    <header className="border-color-border bg-background flex h-16 items-center justify-between border-b px-6">
       {/* Search Bar */}
       <div className="flex flex-1 items-center space-x-4">
         <div className="relative max-w-md flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
           <Input
             type="search"
             placeholder="Search transactions, blocks, addresses..."
-            className="pl-10 pr-4"
+            className="pr-4 pl-10"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
+
+        {/* Dashboard Link */}
+        <Link to="/">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="flex items-center space-x-2"
+          >
+            <Home className="h-4 w-4" />
+            <span>Dashboard</span>
+          </Button>
+        </Link>
       </div>
 
       {/* Right Side Actions */}
       <div className="flex items-center space-x-4">
+        {/* Settings */}
+        <Link to="/settings">
+          <Button variant="ghost" size="sm" className="h-9 w-9 p-0">
+            <Settings className="h-4 w-4" />
+            <span className="sr-only">Settings</span>
+          </Button>
+        </Link>
+
         {/* Theme Toggle */}
         <ThemeToggle />
 
-
         {/* Wallet Connection */}
-       <ConnectButton />
-
-
+        <ConnectButton />
       </div>
     </header>
   )

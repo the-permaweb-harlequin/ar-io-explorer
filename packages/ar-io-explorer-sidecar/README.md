@@ -22,17 +22,20 @@ A high-performance sidecar service for AR.IO gateways that processes webhook mes
 ### Installation
 
 1. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
 2. **Configure environment**:
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration
    ```
 
 3. **Setup wallet** (optional, for checkpointing):
+
    ```bash
    mkdir -p config
    # Place your Arweave wallet JSON in config/wallet.json
@@ -47,6 +50,7 @@ A high-performance sidecar service for AR.IO gateways that processes webhook mes
 ### Docker Setup
 
 1. **Build and run**:
+
    ```bash
    docker-compose up -d
    ```
@@ -59,15 +63,18 @@ A high-performance sidecar service for AR.IO gateways that processes webhook mes
 ## API Endpoints
 
 ### Health & Status
+
 - `GET /health` - Service health check
 - `GET /webhook/status` - Webhook processing status
 
 ### Webhook Processing
+
 - `POST /webhook/transaction` - Process single transaction
 - `POST /webhook/block` - Process block with multiple transactions
 - `POST /webhook/test` - Test transaction processing
 
 ### Parquet Data Access
+
 - `GET /harlequin/parquet/:table` - Download parquet file
 - `GET /harlequin/tables` - List all tables with metadata
 - `GET /harlequin/metadata/:table` - Get table metadata
@@ -75,10 +82,12 @@ A high-performance sidecar service for AR.IO gateways that processes webhook mes
 - `POST /harlequin/query/:table` - Query table data
 
 ### Data Management
+
 - `POST /checkpoint` - Trigger manual checkpoint
 - `POST /flush` - Flush all buffers to parquet files
 
 ### Catalog Management
+
 - `GET /harlequin/catalog` - Get catalog information
 - `GET /harlequin/catalog/balance` - Check wallet balance
 - `POST /harlequin/catalog/deploy` - Manual catalog deployment
@@ -88,17 +97,17 @@ A high-performance sidecar service for AR.IO gateways that processes webhook mes
 
 ### Environment Variables
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `PORT` | `3001` | Server port |
-| `NODE_ENV` | `development` | Environment mode |
-| `PARQUET_BATCH_SIZE` | `1000` | Records per batch |
-| `CHECKPOINT_INTERVAL` | `"0 2 * * *"` | Cron schedule for checkpoints |
-| `FLUSH_INTERVAL` | `"*/5 * * * *"` | Cron schedule for buffer flush |
-| `ARWEAVE_HOST` | `arweave.net` | Arweave gateway host |
-| `ARWEAVE_WALLET_PATH` | `./config/wallet.json` | Path to Arweave wallet |
-| `ARNS_NAME` | `harlequin-data` | ArNS name for catalog |
-| `AUTO_UPDATE_ARNS` | `false` | Auto-update ArNS on checkpoint |
+| Variable              | Default                | Description                    |
+| --------------------- | ---------------------- | ------------------------------ |
+| `PORT`                | `3001`                 | Server port                    |
+| `NODE_ENV`            | `development`          | Environment mode               |
+| `PARQUET_BATCH_SIZE`  | `1000`                 | Records per batch              |
+| `CHECKPOINT_INTERVAL` | `"0 2 * * *"`          | Cron schedule for checkpoints  |
+| `FLUSH_INTERVAL`      | `"*/5 * * * *"`        | Cron schedule for buffer flush |
+| `ARWEAVE_HOST`        | `arweave.net`          | Arweave gateway host           |
+| `ARWEAVE_WALLET_PATH` | `./config/wallet.json` | Path to Arweave wallet         |
+| `ARNS_NAME`           | `harlequin-data`       | ArNS name for catalog          |
+| `AUTO_UPDATE_ARNS`    | `false`                | Auto-update ArNS on checkpoint |
 
 ### Supported Data Types
 
@@ -120,8 +129,8 @@ Configure your AR.IO gateway to send webhooks to the sidecar:
 ```yaml
 # gateway-config.yml
 webhooks:
-  transaction_url: "http://harlequin-sidecar:3001/webhook/transaction"
-  block_url: "http://harlequin-sidecar:3001/webhook/block"
+  transaction_url: 'http://harlequin-sidecar:3001/webhook/transaction'
+  block_url: 'http://harlequin-sidecar:3001/webhook/block'
 ```
 
 ### Transaction Webhook Format
@@ -132,8 +141,8 @@ webhooks:
   "owner": "owner_address",
   "target": "target_address",
   "tags": [
-    {"name": "App-Name", "value": "ArNS"},
-    {"name": "Action", "value": "Buy-Record"}
+    { "name": "App-Name", "value": "ArNS" },
+    { "name": "Action", "value": "Buy-Record" }
   ],
   "data_size": 1024,
   "block_height": 1000000,
@@ -145,6 +154,7 @@ webhooks:
 ## Data Schema
 
 ### ArNS Names Table
+
 - `name`: ArNS name
 - `owner`: Owner address
 - `target`: Target Arweave ID
@@ -155,6 +165,7 @@ webhooks:
 - `transaction_id`: Transaction ID
 
 ### Transactions Table
+
 - `id`: Transaction ID
 - `owner`: Owner address
 - `target`: Target address

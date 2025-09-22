@@ -1,13 +1,13 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @import '@fontsource-variable/sometype-mono';
-
 
 body {
   @apply m-0;
   font-family:
     'Sometype Mono Variable', 'Sometype Mono', ui-monospace, SFMono-Regular,
-    'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -15,7 +15,8 @@ body {
 code {
   font-family:
     'Sometype Mono Variable', 'Sometype Mono', ui-monospace, SFMono-Regular,
-    'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    'SF Mono', Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
 }
 
 :root {
@@ -63,27 +64,22 @@ code {
   --ring: #d4d4d8;
 }
 
-
 @layer base {
   * {
     border-color: var(--border);
+    scrollbar-width: thin;
+    scrollbar-color: var(--muted) var(--background);
   }
-  
+
   html {
     background-color: var(--background);
     color: var(--foreground);
   }
-  
+
   body {
     background-color: var(--background);
     color: var(--foreground);
     min-height: 100vh;
-  }
-
-  /* Custom scrollbar styles */
-  * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--muted) var(--background);
   }
 
   /* Webkit scrollbar styles */

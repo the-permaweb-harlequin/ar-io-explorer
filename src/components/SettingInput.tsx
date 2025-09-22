@@ -1,6 +1,17 @@
-import { useState, useEffect } from 'react'
-import { AlertCircle, CheckCircle, ExternalLink, RotateCcw, Save, Clock, Wifi, WifiOff } from 'lucide-react'
+import { useState } from 'react'
+
+import {
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  ExternalLink,
+  RotateCcw,
+  Save,
+  Wifi,
+  WifiOff,
+} from 'lucide-react'
 import validator from 'validator'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -18,7 +29,12 @@ interface SettingInputProps {
   status: 'idle' | 'saving' | 'saved' | 'error'
 }
 
-type ValidationState = 'unchecked' | 'checking' | 'valid' | 'invalid' | 'unreachable'
+type ValidationState =
+  | 'unchecked'
+  | 'checking'
+  | 'valid'
+  | 'invalid'
+  | 'unreachable'
 
 export function SettingInput({
   id,
@@ -36,7 +52,7 @@ export function SettingInput({
 
   const validateUrl = (url: string): boolean => {
     if (!url || url.trim() === '') return false
-    
+
     // Use validator package for more robust URL validation
     return validator.isURL(url, {
       protocols: ['http', 'https'],
@@ -67,7 +83,7 @@ export function SettingInput({
       })
 
       clearTimeout(timeoutId)
-      
+
       // Check if response is successful (2xx status codes)
       if (response.ok) {
         setValidation('valid')
@@ -90,10 +106,10 @@ export function SettingInput({
           })
 
           clearTimeout(timeoutId2)
-          // For no-cors, we can't check the status, but if it doesn't throw, 
+          // For no-cors, we can't check the status, but if it doesn't throw,
           // it's likely reachable (though we can't be certain)
           setValidation('valid')
-        } catch (noCorsError) {
+        } catch {
           setValidation('unreachable')
         }
       }
@@ -128,18 +144,18 @@ export function SettingInput({
 
     switch (validation) {
       case 'checking':
-        return <Clock className="h-4 w-4 text-blue-500 animate-pulse" />
+        return <Clock className="h-4 w-4 animate-pulse text-blue-500" />
       case 'valid':
         return <CheckCircle className="h-4 w-4 text-green-500" />
       case 'unreachable':
         return <WifiOff className="h-4 w-4 text-orange-500" />
       case 'invalid':
-        return <AlertCircle className="h-4 w-4 text-destructive" />
+        return <AlertCircle className="text-destructive h-4 w-4" />
       default:
         return isValidFormat ? (
           <Wifi className="h-4 w-4 text-gray-400" />
         ) : (
-          <AlertCircle className="h-4 w-4 text-destructive" />
+          <AlertCircle className="text-destructive h-4 w-4" />
         )
     }
   }
@@ -155,12 +171,18 @@ export function SettingInput({
       case 'valid':
         return <p className="text-xs text-green-600">URL is reachable</p>
       case 'unreachable':
-        return <p className="text-xs text-orange-600">URL format is valid but may not be reachable</p>
+        return (
+          <p className="text-xs text-orange-600">
+            URL format is valid but may not be reachable
+          </p>
+        )
       case 'invalid':
-        return <p className="text-xs text-destructive">Please enter a valid URL</p>
+        return (
+          <p className="text-destructive text-xs">Please enter a valid URL</p>
+        )
       default:
         return !isValidFormat ? (
-          <p className="text-xs text-destructive">Please enter a valid URL</p>
+          <p className="text-destructive text-xs">Please enter a valid URL</p>
         ) : null
     }
   }
@@ -169,7 +191,7 @@ export function SettingInput({
   const hasChanged = value !== originalValue
 
   return (
-    <div className="space-y-3 p-4 border border-border rounded-lg">
+    <div className="border-border space-y-2 rounded-lg border p-3">
       <div className="flex items-center justify-between">
         <Label htmlFor={id} className="text-sm font-medium">
           {label}
@@ -182,93 +204,84 @@ export function SettingInput({
             disabled={!isValid}
             className="h-6 px-2 text-xs"
           >
-            <ExternalLink className="h-3 w-3 mr-1" />
+            <ExternalLink className="mr-1 h-3 w-3" />
             Test
           </Button>
         )}
       </div>
 
-      <div className="relative">
-        <Input
-          id={id}
-          type="url"
-          value={value}
-          onChange={(e) => handleInputChange(e.target.value)}
-          placeholder={placeholder}
-          className={`pr-8 ${
-            value && !isValid 
-              ? 'border-destructive focus:border-destructive' 
-              : ''
-          }`}
-        />
-        {value && (
-          <div className="absolute right-2 top-1/2 -translate-y-1/2">
-            {getValidationIcon()}
-          </div>
-        )}
-      </div>
+      <div className="flex items-center space-x-2">
+        <div className="relative flex-1">
+          <Input
+            id={id}
+            type="url"
+            value={value}
+            onChange={(e) => handleInputChange(e.target.value)}
+            placeholder={placeholder}
+            className={`pr-8 ${
+              value && !isValid
+                ? 'border-destructive focus:border-destructive'
+                : ''
+            }`}
+          />
+          {value && (
+            <div className="absolute top-1/2 right-2 -translate-y-1/2">
+              {getValidationIcon()}
+            </div>
+          )}
+        </div>
 
-      <p className="text-xs text-muted-foreground">
-        {description}
-      </p>
-
-      {getValidationMessage()}
-
-      {/* Individual Save/Reset Buttons */}
-      <div className="flex items-center justify-between pt-2">
-        <div className="flex items-center space-x-2">
+        {/* Inline Save/Reset Buttons */}
+        <div className="flex items-center space-x-1">
           <Button
             variant="outline"
             size="sm"
             onClick={onReset}
             disabled={!hasChanged || status === 'saving'}
-            className="h-7 px-2 text-xs"
+            className="h-8 px-2 text-xs"
           >
-            <RotateCcw className="h-3 w-3 mr-1" />
-            Reset
+            <RotateCcw className="h-3 w-3" />
           </Button>
 
           <Button
             size="sm"
             onClick={onSave}
             disabled={!hasChanged || !isValid || status === 'saving'}
-            className="h-7 px-2 text-xs"
+            className="h-8 px-2 text-xs"
           >
             {status === 'saving' ? (
-              <>
-                <div className="animate-spin h-3 w-3 border border-white border-t-transparent rounded-full mr-1" />
-                Saving...
-              </>
+              <div className="h-3 w-3 animate-spin rounded-full border border-white border-t-transparent" />
             ) : (
-              <>
-                <Save className="h-3 w-3 mr-1" />
-                Save
-              </>
+              <Save className="h-3 w-3" />
             )}
           </Button>
         </div>
+      </div>
+
+      <div className="flex items-center justify-between">
+        <p className="text-muted-foreground text-xs">{description}</p>
 
         {/* Status Indicator */}
         <div className="flex items-center space-x-1">
           {status === 'saved' && (
             <div className="flex items-center text-xs text-green-600">
-              <CheckCircle className="h-3 w-3 mr-1" />
+              <CheckCircle className="mr-1 h-3 w-3" />
               Saved
             </div>
           )}
           {status === 'error' && (
-            <div className="flex items-center text-xs text-destructive">
-              <AlertCircle className="h-3 w-3 mr-1" />
+            <div className="text-destructive flex items-center text-xs">
+              <AlertCircle className="mr-1 h-3 w-3" />
               Error
             </div>
           )}
           {hasChanged && status === 'idle' && (
-            <div className="text-xs text-muted-foreground">
-              Unsaved changes
-            </div>
+            <div className="text-muted-foreground text-xs">Unsaved changes</div>
           )}
         </div>
       </div>
+
+      {getValidationMessage()}
     </div>
   )
 }

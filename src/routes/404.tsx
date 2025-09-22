@@ -1,4 +1,5 @@
 import { createRoute } from '@tanstack/react-router'
+
 import { NotFound } from '@/components/NotFound'
 import { Layout } from '@/components/layout'
 

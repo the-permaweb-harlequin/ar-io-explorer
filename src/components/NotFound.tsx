@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
-import { Home, Search, Database, Blocks, FileText, Wallet, Settings } from 'lucide-react'
+import { Blocks, Database, FileText, Home, Search, Wallet } from 'lucide-react'
+
 import { Button } from '@/components/ui/button'
 
 export function NotFound() {
@@ -43,13 +44,15 @@ export function NotFound() {
   ]
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="max-w-2xl mx-auto text-center">
+    <div className="bg-background flex min-h-screen items-center justify-center p-4">
+      <div className="mx-auto max-w-2xl text-center">
         {/* 404 Header */}
         <div className="mb-8">
-          <h1 className="text-8xl font-bold text-primary mb-4">404</h1>
-          <h2 className="text-3xl font-semibold text-foreground mb-2">Page Not Found</h2>
-          <p className="text-lg text-muted-foreground">
+          <h1 className="text-primary mb-4 text-8xl font-bold">404</h1>
+          <h2 className="text-foreground mb-2 text-3xl font-semibold">
+            Page Not Found
+          </h2>
+          <p className="text-muted-foreground text-lg">
             The page you're looking for doesn't exist or has been moved.
           </p>
         </div>
@@ -62,34 +65,38 @@ export function NotFound() {
               Go Home
             </Button>
           </Link>
-          <Button variant="outline" size="lg" onClick={() => window.history.back()}>
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={() => window.history.back()}
+          >
             Go Back
           </Button>
         </div>
 
         {/* Suggested Pages */}
         <div className="text-left">
-          <h3 className="text-xl font-semibold text-foreground mb-6 text-center">
+          <h3 className="text-foreground mb-6 text-center text-xl font-semibold">
             Explore These Pages Instead
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {suggestedPages.map((page) => {
               const Icon = page.icon
               return (
                 <Link
                   key={page.path}
                   to={page.path}
-                  className="block p-4 rounded-lg border border-border bg-card hover:bg-accent transition-colors cursor-pointer"
+                  className="border-border bg-card hover:bg-accent block cursor-pointer rounded-lg border p-4 transition-colors"
                 >
                   <div className="flex items-start space-x-3">
-                    <div className="flex-shrink-0 mt-1">
-                      <Icon className="h-5 w-5 text-primary" />
+                    <div className="mt-1 flex-shrink-0">
+                      <Icon className="text-primary h-5 w-5" />
                     </div>
                     <div>
-                      <h4 className="font-medium text-card-foreground mb-1">
+                      <h4 className="text-card-foreground mb-1 font-medium">
                         {page.title}
                       </h4>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         {page.description}
                       </p>
                     </div>
@@ -101,8 +108,8 @@ export function NotFound() {
         </div>
 
         {/* Footer */}
-        <div className="mt-12 pt-8 border-t border-border">
-          <p className="text-sm text-muted-foreground">
+        <div className="border-border mt-12 border-t pt-8">
+          <p className="text-muted-foreground text-sm">
             Need help? Check out our{' '}
             <Link to="/settings" className="text-primary hover:underline">
               settings

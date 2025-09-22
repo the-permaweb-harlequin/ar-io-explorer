@@ -25,31 +25,48 @@ pnpm add @the-permaweb-harlequin/shared-types
 ### Import All Types
 
 ```typescript
-import type { Transaction, ArNSName, ApiResponse } from '@the-permaweb-harlequin/shared-types';
+import type {
+  ApiResponse,
+  ArNSName,
+  Transaction,
+} from '@the-permaweb-harlequin/shared-types'
 ```
 
 ### Import Specific Modules
 
 ```typescript
 // Arweave-specific types
-import type { Transaction, Tag, Block } from '@the-permaweb-harlequin/shared-types/arweave';
-
-// ArNS-specific types
-import type { ArNSName, ArNSRecord } from '@the-permaweb-harlequin/shared-types/arns';
-
 // AO-specific types
-import type { AOProcess, AOMessage } from '@the-permaweb-harlequin/shared-types/ao';
-
+import type {
+  AOMessage,
+  AOProcess,
+} from '@the-permaweb-harlequin/shared-types/ao'
 // API response types
-import type { ApiResponse, PaginatedResponse } from '@the-permaweb-harlequin/shared-types/api';
-
+import type {
+  ApiResponse,
+  PaginatedResponse,
+} from '@the-permaweb-harlequin/shared-types/api'
+// ArNS-specific types
+import type {
+  ArNSName,
+  ArNSRecord,
+} from '@the-permaweb-harlequin/shared-types/arns'
+import type {
+  Block,
+  Tag,
+  Transaction,
+} from '@the-permaweb-harlequin/shared-types/arweave'
 // Parquet and data management types
-import type { TableStats, DataCatalog } from '@the-permaweb-harlequin/shared-types/parquet';
+import type {
+  DataCatalog,
+  TableStats,
+} from '@the-permaweb-harlequin/shared-types/parquet'
 ```
 
 ## Type Categories
 
 ### Core Arweave Types (`/arweave`)
+
 - `Transaction` - Arweave transaction structure
 - `Tag` - Transaction tag key-value pairs
 - `Block` - Block information with transactions
@@ -57,6 +74,7 @@ import type { TableStats, DataCatalog } from '@the-permaweb-harlequin/shared-typ
 - `TransactionClassification` - Transaction type classification
 
 ### ArNS Types (`/arns`)
+
 - `ArNSName` - ArNS name registration data
 - `ArNSRecord` - DNS record information
 - `ANTRegistry` - ANT registry entries
@@ -64,6 +82,7 @@ import type { TableStats, DataCatalog } from '@the-permaweb-harlequin/shared-typ
 - `ArNSSearchResult` - Paginated search results
 
 ### AO Types (`/ao`)
+
 - `AOProcess` - AO process information
 - `AOMessage` - AO message data
 - `AOModule` - AO module definitions
@@ -72,6 +91,7 @@ import type { TableStats, DataCatalog } from '@the-permaweb-harlequin/shared-typ
 - `AOMessageFilters` - Message search filters
 
 ### API Types (`/api`)
+
 - `ApiResponse<T>` - Standard API response wrapper
 - `PaginatedResponse<T>` - Paginated data responses
 - `HealthResponse` - Health check response
@@ -80,6 +100,7 @@ import type { TableStats, DataCatalog } from '@the-permaweb-harlequin/shared-typ
 - `ApiError` - Error response structure
 
 ### Parquet & Data Types (`/parquet`)
+
 - `TableStats` - Parquet table statistics
 - `DataCatalog` - Data catalog structure
 - `TableInfo` - Individual table metadata
@@ -90,7 +111,11 @@ import type { TableStats, DataCatalog } from '@the-permaweb-harlequin/shared-typ
 ## Common Enums
 
 ```typescript
-import { TransactionType, RecordType, TableName } from '@the-permaweb-harlequin/shared-types';
+import {
+  RecordType,
+  TableName,
+  TransactionType,
+} from '@the-permaweb-harlequin/shared-types'
 
 // Transaction classification
 TransactionType.ARNS_NAME
@@ -111,13 +136,18 @@ TableName.TRANSACTIONS
 ## Utility Types
 
 ```typescript
-import type { Nullable, Optional, ID, Address } from '@the-permaweb-harlequin/shared-types';
+import type {
+  Address,
+  ID,
+  Nullable,
+  Optional,
+} from '@the-permaweb-harlequin/shared-types'
 
 // Common utility types
-type MaybeUser = Nullable<User>;        // User | null
-type OptionalId = Optional<string>;     // string | undefined
-type UserId = ID;                       // string
-type WalletAddress = Address;           // string
+type MaybeUser = Nullable<User> // User | null
+type OptionalId = Optional<string> // string | undefined
+type UserId = ID // string
+type WalletAddress = Address // string
 ```
 
 ## Development
@@ -158,13 +188,13 @@ When adding new types:
 ```typescript
 // src/new-module.ts
 export interface NewType {
-  id: string;
-  name: string;
+  id: string
+  name: string
   // ... other properties
 }
 
 // src/index.ts
-export * from './new-module.js';
+export * from './new-module.js'
 ```
 
 ## License

@@ -1,5 +1,5 @@
 import scrollbar from 'tailwind-scrollbar'
-import type { Config } from 'tailwindcss'
+import { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
@@ -68,9 +68,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    scrollbar({ nocompatible: true }),
-  ],
+  plugins: [scrollbar({ nocompatible: true })],
 }
 
 export default config

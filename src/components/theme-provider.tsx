@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect } from 'react'
-import { useAppStore, type Theme, getResolvedTheme } from '@/store/app-store'
+
+import { type Theme, getResolvedTheme, useAppStore } from '@/store/app-store'
 
 type ThemeProviderContextType = {
   theme: Theme
@@ -7,12 +8,14 @@ type ThemeProviderContextType = {
   resolvedTheme: 'light' | 'dark'
 }
 
-const ThemeProviderContext = createContext<ThemeProviderContextType | undefined>(undefined)
+const ThemeProviderContext = createContext<
+  ThemeProviderContextType | undefined
+>(undefined)
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const theme = useAppStore((state) => state.theme)
   const setTheme = useAppStore((state) => state.setTheme)
-  
+
   const resolvedTheme = getResolvedTheme(theme)
 
   useEffect(() => {

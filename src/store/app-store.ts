@@ -1,6 +1,6 @@
+import { openDB } from 'idb'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { openDB } from 'idb'
 
 // Theme type
 export type Theme = 'light' | 'dark' | 'system'
@@ -30,21 +30,21 @@ interface AppState {
   // Theme
   theme: Theme
   setTheme: (theme: Theme) => void
-  
+
   // Search
   searchQuery: string
   setSearchQuery: (query: string) => void
-  
+
   // Sidebar
   sidebarCollapsed: boolean
   setSidebarCollapsed: (collapsed: boolean) => void
-  
+
   // Wallet connection state
   walletConnected: boolean
   walletAddress: string | null
   setWalletConnected: (connected: boolean) => void
   setWalletAddress: (address: string | null) => void
-  
+
   // Configuration
   config: AppConfig
   setConfig: (config: Partial<AppConfig>) => void
@@ -96,30 +96,34 @@ const idbStorage = createJSONStorage(() => ({
 // Create the store with persistence
 export const useAppStore = create<AppState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       // Theme state
       theme: 'system',
       setTheme: (theme: Theme) => set({ theme }),
-      
+
       // Search state
       searchQuery: '',
       setSearchQuery: (searchQuery: string) => set({ searchQuery }),
-      
+
       // Sidebar state
       sidebarCollapsed: false,
-      setSidebarCollapsed: (sidebarCollapsed: boolean) => set({ sidebarCollapsed }),
-      
+      setSidebarCollapsed: (sidebarCollapsed: boolean) =>
+        set({ sidebarCollapsed }),
+
       // Wallet state
       walletConnected: false,
       walletAddress: null,
-      setWalletConnected: (walletConnected: boolean) => set({ walletConnected }),
-      setWalletAddress: (walletAddress: string | null) => set({ walletAddress }),
-      
+      setWalletConnected: (walletConnected: boolean) =>
+        set({ walletConnected }),
+      setWalletAddress: (walletAddress: string | null) =>
+        set({ walletAddress }),
+
       // Configuration state
       config: defaultConfig,
-      setConfig: (newConfig: Partial<AppConfig>) => set((state) => ({
-        config: { ...state.config, ...newConfig }
-      })),
+      setConfig: (newConfig: Partial<AppConfig>) =>
+        set((state) => ({
+          config: { ...state.config, ...newConfig },
+        })),
       resetConfig: () => set({ config: defaultConfig }),
     }),
     {
@@ -133,14 +137,16 @@ export const useAppStore = create<AppState>()(
         walletConnected: state.walletConnected,
         config: state.config,
       }),
-    }
-  )
+    },
+  ),
 )
 
 // Theme utilities
 export const getSystemTheme = (): 'light' | 'dark' => {
   if (typeof window !== 'undefined') {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light'
   }
   return 'light'
 }

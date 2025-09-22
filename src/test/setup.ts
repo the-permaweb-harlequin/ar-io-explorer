@@ -10,7 +10,9 @@ global.IntersectionObserver = class IntersectionObserver {
   disconnect() {}
   observe() {}
   unobserve() {}
-  takeRecords() { return [] }
+  takeRecords() {
+    return []
+  }
 }
 
 // Mock ResizeObserver

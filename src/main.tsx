@@ -1,24 +1,26 @@
 import { StrictMode } from 'react'
 
 import {
+  AOWalletKit,
+  ArConnectStrategy,
+  ArweaveWebWalletStrategy,
+  ethereumStrategy,
+} from '@project-kardeshev/ao-wallet-kit'
+import {
   Outlet,
   RouterProvider,
+  createHashHistory,
   createRootRoute,
   createRoute,
   createRouter,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import ReactDOM from 'react-dom/client'
-import { AOWalletKit, ArConnectStrategy, ArweaveWebWalletStrategy, ethereumStrategy } from '@project-kardeshev/ao-wallet-kit'
 
 import App from './App.tsx'
 import { ThemeProvider } from './components/theme-provider'
 import * as TanStackQueryProvider from './integrations/tanstack-query/root-provider.tsx'
 import reportWebVitals from './reportWebVitals.ts'
-import FormAddressDemo from './routes/demo.form.address.tsx'
-import FormSimpleDemo from './routes/demo.form.simple.tsx'
-import TableDemo from './routes/demo.table.tsx'
-import TanStackQueryDemo from './routes/demo.tanstack-query.tsx'
 import NotFoundRoute from './routes/404.tsx'
 import SettingsRoute from './routes/settings.tsx'
 import './styles.css'
@@ -47,6 +49,7 @@ const routeTree = rootRoute.addChildren([
 const TanStackQueryProviderContext = TanStackQueryProvider.getContext()
 const router = createRouter({
   routeTree,
+  history: createHashHistory(),
   context: {
     ...TanStackQueryProviderContext,
   },
@@ -69,29 +72,34 @@ if (rootElement && !rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <AOWalletKit
-      strategies={[
-        new ArConnectStrategy(),
-        ethereumStrategy,
-        new ArweaveWebWalletStrategy()
-      ]}
-      config={{
-        permissions: ['ACCESS_ADDRESS', 'ACCESS_ALL_ADDRESSES', 'ACCESS_PUBLIC_KEY', 'SIGN_TRANSACTION', 'SIGNATURE'],
-      
-      }}
-      theme={{
-        displayTheme: 'dark',
-        accent: {
-          r: 0,
-          g: 0,
-          b: 0,
-        },
-        titleHighlight: {
-          r: 0,
-          g: 0,
-          b: 0,
-        },
-        radius: 'minimal',
-      }}
+        strategies={[
+          new ArConnectStrategy(),
+          ethereumStrategy,
+          new ArweaveWebWalletStrategy(),
+        ]}
+        config={{
+          permissions: [
+            'ACCESS_ADDRESS',
+            'ACCESS_ALL_ADDRESSES',
+            'ACCESS_PUBLIC_KEY',
+            'SIGN_TRANSACTION',
+            'SIGNATURE',
+          ],
+        }}
+        theme={{
+          displayTheme: 'dark',
+          accent: {
+            r: 0,
+            g: 0,
+            b: 0,
+          },
+          titleHighlight: {
+            r: 0,
+            g: 0,
+            b: 0,
+          },
+          radius: 'minimal',
+        }}
       >
         <ThemeProvider>
           <TanStackQueryProvider.Provider {...TanStackQueryProviderContext}>
@@ -99,7 +107,7 @@ if (rootElement && !rootElement.innerHTML) {
           </TanStackQueryProvider.Provider>
         </ThemeProvider>
       </AOWalletKit>
-    </StrictMode>
+    </StrictMode>,
   )
 }
 
