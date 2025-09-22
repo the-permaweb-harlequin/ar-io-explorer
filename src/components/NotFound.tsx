@@ -3,9 +3,12 @@ import {
   BarChart3,
   Code,
   Cpu,
+  Database,
+  FileCode,
   FileText,
   Globe,
   Home,
+  Layers,
   Network,
   Settings,
   Terminal,
@@ -44,6 +47,12 @@ export function NotFound() {
       icon: Network,
     },
     {
+      title: 'AO Modules',
+      description: 'Browse AO modules and their specifications',
+      path: '/modules',
+      icon: Layers,
+    },
+    {
       title: 'AOS',
       description: 'Access the AO operating system interface',
       path: '/aos',
@@ -67,6 +76,12 @@ export function NotFound() {
       description: 'Explore Arweave Name Tokens',
       path: '/ants',
       icon: FileText,
+    },
+    {
+      title: 'ANT Registry',
+      description: 'Browse the ANT registry and ownership records',
+      path: '/ant-registry',
+      icon: Database,
     },
     {
       title: 'Gateways',
@@ -98,6 +113,12 @@ export function NotFound() {
       description: 'Upload data to the Arweave network',
       path: '/upload',
       icon: Upload,
+    },
+    {
+      title: 'UDL',
+      description: 'Universal Data License tools and utilities',
+      path: '/udl',
+      icon: FileCode,
     },
     {
       title: 'Wallet Manager',

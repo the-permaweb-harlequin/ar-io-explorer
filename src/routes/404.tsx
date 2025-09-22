@@ -6,8 +6,13 @@ import { Layout } from '@/components/layout'
 export default function NotFoundRoute(rootRoute: any) {
   return createRoute({
     getParentRoute: () => rootRoute,
-    path: '/404',
+    path: '*',
     component: () => (
+      <Layout>
+        <NotFound />
+      </Layout>
+    ),
+    errorComponent: () => (
       <Layout>
         <NotFound />
       </Layout>

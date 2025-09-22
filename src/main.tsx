@@ -18,6 +18,8 @@ import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import ReactDOM from 'react-dom/client'
 
 import App from './App.tsx'
+import { NotFound } from './components/NotFound.tsx'
+import { Layout } from './components/layout.tsx'
 import { ThemeProvider } from './components/theme-provider'
 import * as TanStackQueryProvider from './integrations/tanstack-query/root-provider.tsx'
 import reportWebVitals from './reportWebVitals.ts'
@@ -32,6 +34,33 @@ const rootRoute = createRootRoute({
   component: () => (
     <>
       <Outlet />
+      <TanStackRouterDevtools />
+    </>
+  ),
+  notFoundComponent: () => (
+    <Layout>
+      <NotFound />
+    </Layout>
+  ),
+  errorComponent: () => (
+    <>
+      <div className="flex min-h-screen items-center justify-center bg-background p-4">
+        <div className="mx-auto max-w-md text-center">
+          <h1 className="mb-4 text-6xl font-bold text-destructive">Error</h1>
+          <h2 className="mb-2 text-2xl font-semibold text-foreground">
+            Something went wrong
+          </h2>
+          <p className="mb-6 text-muted-foreground">
+            An unexpected error occurred. Please try refreshing the page.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="hover:bg-primary/90 rounded-lg bg-primary px-4 py-2 text-primary-foreground"
+          >
+            Refresh Page
+          </button>
+        </div>
+      </div>
       <TanStackRouterDevtools />
     </>
   ),
