@@ -1,5 +1,18 @@
 import { Link } from '@tanstack/react-router'
-import { Blocks, Database, FileText, Home, Search, Wallet } from 'lucide-react'
+import {
+  BarChart3,
+  Code,
+  Cpu,
+  FileText,
+  Globe,
+  Home,
+  Network,
+  Settings,
+  Terminal,
+  Upload,
+  Wallet,
+  Zap,
+} from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 
@@ -12,31 +25,82 @@ export function NotFound() {
       icon: Home,
     },
     {
-      title: 'Explorer',
-      description: 'Search and explore the Arweave network',
-      path: '/explorer',
-      icon: Search,
+      title: 'Settings',
+      description: 'Configure application endpoints and services',
+      path: '/settings',
+      icon: Settings,
+    },
+    // AO Section
+    {
+      title: 'AO Processes',
+      description: 'Explore AO processes and their states',
+      path: '/processes',
+      icon: Cpu,
     },
     {
-      title: 'Transactions',
-      description: 'Browse transaction history and details',
-      path: '/transactions',
+      title: 'AO Messages',
+      description: 'View messages between AO processes',
+      path: '/messages',
+      icon: Network,
+    },
+    {
+      title: 'AOS',
+      description: 'Access the AO operating system interface',
+      path: '/aos',
+      icon: Terminal,
+    },
+    {
+      title: 'Hyperbeam',
+      description: 'High-performance AO message streaming',
+      path: '/hyperbeam',
+      icon: Zap,
+    },
+    // ArNS Section
+    {
+      title: 'ArNS Names',
+      description: 'Browse Arweave Name System registrations',
+      path: '/names',
+      icon: Globe,
+    },
+    {
+      title: 'ANTs',
+      description: 'Explore Arweave Name Tokens',
+      path: '/ants',
       icon: FileText,
     },
     {
-      title: 'Blocks',
-      description: 'Explore block information and mining data',
-      path: '/blocks',
-      icon: Blocks,
+      title: 'Gateways',
+      description: 'View AR.IO gateway network status',
+      path: '/gateways',
+      icon: Network,
+    },
+    // Tools Section
+    {
+      title: 'ANS-104 Viewer',
+      description: 'Decode and inspect ANS-104 data items',
+      path: '/ans-104',
+      icon: FileText,
     },
     {
-      title: 'Data Items',
-      description: 'View ANS-104 data items and bundles',
-      path: '/data-items',
-      icon: Database,
+      title: 'GraphQL',
+      description: 'Query Arweave data with GraphQL',
+      path: '/graphql',
+      icon: Code,
     },
     {
-      title: 'Wallet',
+      title: 'Parquet Explorer',
+      description: 'Analyze Arweave data in Parquet format',
+      path: '/parquet',
+      icon: BarChart3,
+    },
+    {
+      title: 'Upload Tool',
+      description: 'Upload data to the Arweave network',
+      path: '/upload',
+      icon: Upload,
+    },
+    {
+      title: 'Wallet Manager',
       description: 'Connect and manage your Arweave wallet',
       path: '/wallet',
       icon: Wallet,
@@ -45,7 +109,7 @@ export function NotFound() {
 
   return (
     <div className="bg-background flex min-h-screen items-center justify-center p-4">
-      <div className="mx-auto max-w-2xl text-center">
+      <div className="mx-auto max-w-4xl text-center">
         {/* 404 Header */}
         <div className="mb-8">
           <h1 className="text-primary mb-4 text-8xl font-bold">404</h1>
@@ -79,7 +143,7 @@ export function NotFound() {
           <h3 className="text-foreground mb-6 text-center text-xl font-semibold">
             Explore These Pages Instead
           </h3>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {suggestedPages.map((page) => {
               const Icon = page.icon
               return (
