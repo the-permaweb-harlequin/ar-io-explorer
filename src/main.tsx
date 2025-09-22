@@ -23,6 +23,7 @@ import * as TanStackQueryProvider from './integrations/tanstack-query/root-provi
 import reportWebVitals from './reportWebVitals.ts'
 import NotFoundRoute from './routes/404.tsx'
 import MessagesRoute from './routes/messages.tsx'
+import ModulesRoute from './routes/modules.tsx'
 import ProcessesRoute from './routes/processes.tsx'
 import SettingsRoute from './routes/settings.tsx'
 import './styles.css'
@@ -46,6 +47,7 @@ const routeTree = rootRoute.addChildren([
   indexRoute,
   ProcessesRoute(rootRoute),
   MessagesRoute(rootRoute),
+  ModulesRoute(rootRoute),
   SettingsRoute(rootRoute),
   NotFoundRoute(rootRoute),
 ])
