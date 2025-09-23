@@ -32,37 +32,30 @@ import './styles.css'
 
 const rootRoute = createRootRoute({
   component: () => (
-    <>
+    <Layout>
       <Outlet />
       <TanStackRouterDevtools />
-    </>
-  ),
-  notFoundComponent: () => (
-    <Layout>
-      <NotFound />
     </Layout>
   ),
+  notFoundComponent: () => <NotFound />,
   errorComponent: () => (
-    <>
-      <div className="flex min-h-screen items-center justify-center bg-background p-4">
-        <div className="mx-auto max-w-md text-center">
-          <h1 className="mb-4 text-6xl font-bold text-destructive">Error</h1>
-          <h2 className="mb-2 text-2xl font-semibold text-foreground">
-            Something went wrong
-          </h2>
-          <p className="mb-6 text-muted-foreground">
-            An unexpected error occurred. Please try refreshing the page.
-          </p>
-          <button
-            onClick={() => window.location.reload()}
-            className="hover:bg-primary/90 rounded-lg bg-primary px-4 py-2 text-primary-foreground"
-          >
-            Refresh Page
-          </button>
-        </div>
+    <div className="flex min-h-screen items-center justify-center bg-background p-4">
+      <div className="mx-auto max-w-md text-center">
+        <h1 className="mb-4 text-6xl font-bold text-destructive">Error</h1>
+        <h2 className="mb-2 text-2xl font-semibold text-foreground">
+          Something went wrong
+        </h2>
+        <p className="mb-6 text-muted-foreground">
+          An unexpected error occurred. Please try refreshing the page.
+        </p>
+        <button
+          onClick={() => window.location.reload()}
+          className="hover:bg-primary/90 rounded-lg bg-primary px-4 py-2 text-primary-foreground"
+        >
+          Refresh Page
+        </button>
       </div>
-      <TanStackRouterDevtools />
-    </>
+    </div>
   ),
 })
 

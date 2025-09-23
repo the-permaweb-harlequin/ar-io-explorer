@@ -1,13 +1,18 @@
 import { ConnectButton } from '@project-kardeshev/ao-wallet-kit'
 import { Link } from '@tanstack/react-router'
-import { Home, Search, Settings } from 'lucide-react'
+import { Home, Search, Settings, Terminal } from 'lucide-react'
 
 import { ThemeToggle } from '@/components/theme-toggle'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useAppStore } from '@/store/app-store'
 
-export function TopNavbar() {
+interface TopNavbarProps {
+  onToggleConsole?: () => void
+  isConsoleOpen?: boolean
+}
+
+export function TopNavbar({ onToggleConsole, isConsoleOpen }: TopNavbarProps) {
   const searchQuery = useAppStore((state) => state.searchQuery)
   const setSearchQuery = useAppStore((state) => state.setSearchQuery)
 
@@ -42,6 +47,20 @@ export function TopNavbar() {
 
       {/* Right Side Actions */}
       <div className="flex items-center space-x-4">
+        {/* Console Toggle */}
+        {onToggleConsole && (
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="h-9 w-9 p-0" 
+            onClick={onToggleConsole}
+            title={isConsoleOpen ? "Hide Console" : "Show Console"}
+          >
+            <Terminal className={`h-4 w-4 ${isConsoleOpen ? 'text-primary' : ''}`} />
+            <span className="sr-only">Toggle Console</span>
+          </Button>
+        )}
+
         {/* Settings */}
         <Button variant="ghost" size="sm" className="h-9 w-9 p-0" asChild>
           <Link to="/settings">
