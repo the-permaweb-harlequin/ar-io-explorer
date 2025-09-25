@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import { Settings, X } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -8,7 +9,7 @@ import { Label } from '@/components/ui/label'
 interface ConsoleSession {
   id: string
   name: string
-  type: 'aos'
+  type: 'aos' | 'duckdb'
   processId?: string
   isActive: boolean
 }
@@ -20,7 +21,12 @@ interface TerminalConfigModalProps {
   onSave: (updatedSession: ConsoleSession) => void
 }
 
-export function TerminalConfigModal({ session, isOpen, onClose, onSave }: TerminalConfigModalProps) {
+export function TerminalConfigModal({
+  session,
+  isOpen,
+  onClose,
+  onSave,
+}: TerminalConfigModalProps) {
   const [name, setName] = useState(session.name)
   const [processId, setProcessId] = useState(session.processId || '')
 
@@ -74,24 +80,26 @@ export function TerminalConfigModal({ session, isOpen, onClose, onSave }: Termin
             />
           </div>
 
-          <div>
-            <Label htmlFor="process-id">Process ID</Label>
-            <Input
-              id="process-id"
-              value={processId}
-              onChange={(e) => setProcessId(e.target.value)}
-              placeholder="Enter AO process ID"
-              className="mt-1"
-            />
-            <p className="mt-1 text-xs text-muted-foreground">
-              The AO process ID to connect to for this terminal session
-            </p>
-          </div>
+          {session.type === 'aos' && (
+            <div>
+              <Label htmlFor="process-id">Process ID</Label>
+              <Input
+                id="process-id"
+                value={processId}
+                onChange={(e) => setProcessId(e.target.value)}
+                placeholder="Enter AO process ID"
+                className="mt-1"
+              />
+              <p className="mt-1 text-xs text-muted-foreground">
+                The AO process ID to connect to for this terminal session
+              </p>
+            </div>
+          )}
 
           <div>
             <Label>Session Type</Label>
-            <div className="mt-1 rounded border bg-muted/20 px-3 py-2 text-sm">
-              AOS Terminal
+            <div className="bg-muted/20 mt-1 rounded border px-3 py-2 text-sm">
+              {session.type === 'aos' ? 'AOS Terminal' : 'DuckDB Terminal'}
             </div>
           </div>
         </div>
@@ -101,9 +109,7 @@ export function TerminalConfigModal({ session, isOpen, onClose, onSave }: Termin
           <Button variant="outline" onClick={handleCancel}>
             Cancel
           </Button>
-          <Button onClick={handleSave}>
-            Save Changes
-          </Button>
+          <Button onClick={handleSave}>Save Changes</Button>
         </div>
       </div>
     </div>

@@ -1,13 +1,42 @@
-Welcome to your new TanStack app!
+# AR-IO Explorer
 
-# Getting Started
+A comprehensive explorer for the AR-IO network built with React, TanStack Router, and modern web technologies.
+
+## Features
+
+- **Transaction Explorer**: Browse and search Arweave transactions
+- **Block Explorer**: View block information and statistics
+- **Process Explorer**: Explore AO processes and their messages
+- **Module Explorer**: Browse AO modules and their usage
+- **Real-time Data**: Live updates from the AR-IO network
+- **Local Development**: Run with a local AR-IO node for development
+
+## Getting Started
+
+### Quick Start
 
 To run this application:
 
 ```bash
-npm install
-npm run start
+pnpm install
+pnpm dev
 ```
+
+### Local Development with AR-IO Node
+
+For the best development experience, run a local AR-IO node:
+
+```bash
+# Start local AR-IO node
+./scripts/start-local-node.sh
+
+# In another terminal, start the app
+pnpm dev
+```
+
+The app will automatically detect and use the local node when running on localhost.
+
+📖 **See [Local Development Guide](./docs/LOCAL_DEVELOPMENT.md) for detailed setup instructions.**
 
 # Building For Production
 

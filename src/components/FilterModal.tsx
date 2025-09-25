@@ -88,7 +88,7 @@ export function FilterModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-background max-h-[90vh] w-full max-w-2xl overflow-hidden rounded-lg border shadow-lg">
+      <div className="max-h-[90vh] w-full max-w-2xl overflow-hidden rounded-lg border bg-background shadow-lg">
         {/* Header */}
         <div className="flex items-center justify-between border-b p-6">
           <h2 className="text-xl font-semibold">Advanced Filters</h2>

@@ -49,14 +49,16 @@ export function TopNavbar({ onToggleConsole, isConsoleOpen }: TopNavbarProps) {
       <div className="flex items-center space-x-4">
         {/* Console Toggle */}
         {onToggleConsole && (
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className="h-9 w-9 p-0" 
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-9 w-9 p-0"
             onClick={onToggleConsole}
-            title={isConsoleOpen ? "Hide Console" : "Show Console"}
+            title={isConsoleOpen ? 'Hide Console' : 'Show Console'}
           >
-            <Terminal className={`h-4 w-4 ${isConsoleOpen ? 'text-primary' : ''}`} />
+            <Terminal
+              className={`h-4 w-4 ${isConsoleOpen ? 'text-primary' : ''}`}
+            />
             <span className="sr-only">Toggle Console</span>
           </Button>
         )}

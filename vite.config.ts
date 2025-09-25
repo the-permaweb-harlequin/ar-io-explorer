@@ -11,4 +11,15 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
+  build: {
+    target: 'esnext', // Support for top-level await in WASM modules
+  },
+  optimizeDeps: {
+    exclude: ['@duckdb/duckdb-wasm'],
+  },
+  server: {
+    fs: {
+      allow: ['..'], // Allow serving files from parent directories (for node_modules)
+    },
+  },
 })

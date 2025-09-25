@@ -13,17 +13,44 @@ export interface AppConfig {
   hyperbeamNodeUrl: string
   turboPaymentUrl: string
   turboUploadUrl: string
+  useLocalNode?: boolean // Flag to indicate if local node should be used
 }
 
-// Default configuration values
-export const defaultConfig: AppConfig = {
+// Check if we're in development mode and have local AR-IO node available
+const isLocalDevelopment = () => {
+  return (
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1')
+  )
+}
+
+// Local development configuration
+export const localConfig: AppConfig = {
+  gatewayUrl: 'http://localhost:4000',
+  databaseUrl: 'http://localhost:4000/graphql',
+  cuUrl: 'http://localhost:4000',
+  hyperbeamNodeUrl: 'https://hyperbeam.ar-io.dev', // Use public endpoint for now
+  turboPaymentUrl: 'https://payment.ardrive.io',
+  turboUploadUrl: 'https://upload.ardrive.io',
+  useLocalNode: true,
+}
+
+// Production configuration values
+export const productionConfig: AppConfig = {
   gatewayUrl: 'https://arweave.net',
   databaseUrl: 'https://clickhouse.ar-io.dev',
   cuUrl: 'https://cu.ar-io.dev',
   hyperbeamNodeUrl: 'https://hyperbeam.ar-io.dev',
   turboPaymentUrl: 'https://payment.ardrive.io',
   turboUploadUrl: 'https://upload.ardrive.io',
+  useLocalNode: false,
 }
+
+// Default configuration values - automatically choose based on environment
+export const defaultConfig: AppConfig = isLocalDevelopment()
+  ? localConfig
+  : productionConfig
 
 // App state interface
 interface AppState {
@@ -156,4 +183,40 @@ export const getResolvedTheme = (theme: Theme): 'light' | 'dark' => {
     return getSystemTheme()
   }
   return theme
+}
+
+// Utility function to check if local AR-IO node is available
+export const checkLocalNodeAvailability = async (): Promise<boolean> => {
+  try {
+    const response = await fetch('http://localhost:4000/ar-io/info', {
+      method: 'GET',
+      timeout: 5000, // 5 second timeout
+    } as RequestInit)
+    return response.ok
+  } catch (error) {
+    console.warn('Local AR-IO node not available:', error)
+    return false
+  }
+}
+
+// Get effective configuration with fallback logic
+export const getEffectiveConfig = async (
+  config: AppConfig,
+): Promise<AppConfig> => {
+  if (config.useLocalNode) {
+    const isLocalAvailable = await checkLocalNodeAvailability()
+    if (!isLocalAvailable) {
+      console.warn(
+        'Local AR-IO node not available, falling back to production config',
+      )
+      return {
+        ...config,
+        gatewayUrl: productionConfig.gatewayUrl,
+        databaseUrl: productionConfig.databaseUrl,
+        cuUrl: productionConfig.cuUrl,
+        useLocalNode: false,
+      }
+    }
+  }
+  return config
 }

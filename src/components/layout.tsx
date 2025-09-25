@@ -24,25 +24,25 @@ export function Layout({ children }: LayoutProps) {
       {/* Main Content Area */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Top Navigation */}
-        <TopNavbar 
+        <TopNavbar
           onToggleConsole={toggleConsole}
           isConsoleOpen={isConsoleOpen}
         />
 
         {/* Page Content */}
-        <main 
+        <main
           className="flex-1 overflow-auto p-6"
-          style={{ 
-            height: isConsoleOpen 
-              ? `calc(100vh - 4rem - ${consoleHeight}px)` 
-              : 'calc(100vh - 4rem)' 
+          style={{
+            height: isConsoleOpen
+              ? `calc(100vh - 4rem - ${consoleHeight}px)`
+              : 'calc(100vh - 4rem)',
           }}
         >
           {children}
         </main>
 
         {/* Console Panel */}
-        <Console 
+        <Console
           isOpen={isConsoleOpen}
           onToggle={toggleConsole}
           height={consoleHeight}

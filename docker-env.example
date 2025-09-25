@@ -1,0 +1,28 @@
+# AR-IO Node Local Development Configuration
+# Copy this file to .env and modify as needed for your local setup
+
+# AR-IO Node Configuration
+AR_IO_NODE_URL=http://localhost:4000
+AR_IO_GRAPHQL_URL=http://localhost:3000/graphql
+
+# Gateway Configuration (fallback to public gateway if local node is unavailable)
+GATEWAY_URL=http://localhost:4000
+FALLBACK_GATEWAY_URL=https://arweave.net
+
+# Database Configuration
+DATABASE_URL=http://localhost:4000/graphql
+CU_URL=http://localhost:4000
+
+# Hyperbeam Configuration (use public endpoint for now)
+HYPERBEAM_NODE_URL=https://hyperbeam.ar-io.dev
+
+# Turbo Configuration (use public endpoints)
+TURBO_PAYMENT_URL=https://payment.ardrive.io
+TURBO_UPLOAD_URL=https://upload.ardrive.io
+
+# Development Settings
+NODE_ENV=development
+LOG_LEVEL=debug
+
+# CORS Settings
+CORS_ORIGIN=http://localhost:3000,http://localhost:3001
