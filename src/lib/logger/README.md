@@ -34,7 +34,7 @@ const logger = createLogger('DatabaseClient')
 logger.query(
   'SELECT * FROM users WHERE active = true',
   150, // duration in ms (optional)
-  { userId: 123 } // additional parameters
+  { userId: 123 }, // additional parameters
 )
 ```
 
@@ -58,7 +58,7 @@ queryLogger.info('Executing query') // Logs: [ParquetClient:queries] INFO: Execu
 ### Configuration
 
 ```typescript
-import { createLogger, LogLevel } from '@/lib/logger'
+import { LogLevel, createLogger } from '@/lib/logger'
 
 const logger = createLogger('MyComponent', {
   level: LogLevel.WARN, // Only show WARN and ERROR
@@ -75,7 +75,7 @@ logger.setEnabled(true)
 ## Log Levels
 
 - **DEBUG** (0) - Detailed debugging information
-- **INFO** (1) - General information messages  
+- **INFO** (1) - General information messages
 - **WARN** (2) - Warning messages
 - **ERROR** (3) - Error messages
 
@@ -108,7 +108,7 @@ Both `ParquetClient` and `ArFSClient` use the logger extensively:
 // ParquetClient logs SQL queries, timing, and results
 const parquetClient = new ParquetClient(db)
 
-// ArFSClient logs drive processing and revision handling  
+// ArFSClient logs drive processing and revision handling
 const arfsClient = new ArFSClient(parquetClient)
 ```
 

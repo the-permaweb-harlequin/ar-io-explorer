@@ -7,8 +7,8 @@ export interface ArFSDriveMetadata {
 }
 
 export interface ArFSDriveTags {
-  'ArFS': string
-  'Cipher'?: string
+  ArFS: string
+  Cipher?: string
   'Cipher-IV'?: string
   'Content-Type': 'application/json' | 'application/octet-stream'
   'Drive-Id': string
@@ -26,30 +26,30 @@ export interface ArFSDrive {
   height: bigint
   indexed_at: bigint
   data_size: bigint
-  
+
   // ArFS-specific data
   driveId: string
   privacy: 'public' | 'private'
   arfsVersion: string
   unixTime: number
   contentType: 'application/json' | 'application/octet-stream'
-  
+
   // Optional encryption info
   cipher?: string
   cipherIV?: string
   authMode?: 'password'
   signatureType?: '1'
-  
+
   // Metadata (from transaction data)
   metadata?: ArFSDriveMetadata
-  
+
   // Raw tags for debugging
   tags: Record<string, string>
 }
 
 export interface ArFSFolderTags {
-  'ArFS': string
-  'Cipher'?: string
+  ArFS: string
+  Cipher?: string
   'Cipher-IV'?: string
   'Content-Type': 'application/json' | 'application/octet-stream'
   'Drive-Id': string
@@ -68,8 +68,8 @@ export interface ArFSFileMetadata {
 }
 
 export interface ArFSFileTags {
-  'ArFS': string
-  'Cipher'?: string
+  ArFS: string
+  Cipher?: string
   'Cipher-IV'?: string
   'Content-Type': 'application/json' | 'application/octet-stream'
   'Drive-Id': string

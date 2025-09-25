@@ -49,8 +49,19 @@ query GetTransactionById($id: ID!) {
   }
 }
 
-query GetTransactionsByIds($ids: [ID!]!, $first: Int, $after: String, $tags: [TagFilter!]) {
-  transactions(ids: $ids, first: $first, after: $after, tags: $tags, sort: HEIGHT_DESC) {
+query GetTransactionsByIds(
+  $ids: [ID!]!
+  $first: Int
+  $after: String
+  $tags: [TagFilter!]
+) {
+  transactions(
+    ids: $ids
+    first: $first
+    after: $after
+    tags: $tags
+    sort: HEIGHT_DESC
+  ) {
     count
     pageInfo {
       hasNextPage

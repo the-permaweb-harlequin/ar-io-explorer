@@ -11,7 +11,11 @@ describe('Dashboard', () => {
 
   test('renders welcome message', () => {
     render(<Dashboard />)
-    expect(screen.getByText('Welcome to AR.IO Explorer - Your gateway to the Arweave ecosystem')).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Welcome to AR.IO Explorer - Your gateway to the Arweave ecosystem',
+      ),
+    ).toBeInTheDocument()
   })
 
   test('renders total transactions card', () => {

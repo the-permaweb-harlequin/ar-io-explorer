@@ -19,12 +19,15 @@ interface QueryResult {
 }
 
 // Store session-specific state outside component to persist across re-renders
-const sessionState = new Map<string, {
-  queryHistory: QueryResult[]
-  isInitialized: boolean
-  currentQuery: string
-  historyIndex: number
-}>()
+const sessionState = new Map<
+  string,
+  {
+    queryHistory: QueryResult[]
+    isInitialized: boolean
+    currentQuery: string
+    historyIndex: number
+  }
+>()
 
 const getSessionState = (sessionId: string) => {
   if (!sessionState.has(sessionId)) {
@@ -43,10 +46,16 @@ export function DuckDBTerminal({ sessionId, onReady }: DuckDBTerminalProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const state = getSessionState(sessionId)
   const [query, setQuery] = useState(state.currentQuery)
-  const [queryHistory, setQueryHistory] = useState<QueryResult[]>(state.queryHistory)
+  const [queryHistory, setQueryHistory] = useState<QueryResult[]>(
+    state.queryHistory,
+  )
   const [historyIndex, setHistoryIndex] = useState(state.historyIndex)
   const [isInitialized, setIsInitialized] = useState(state.isInitialized)
-  const { db, loading: dbLoading, error: dbError } = useDuckDB({
+  const {
+    db,
+    loading: dbLoading,
+    error: dbError,
+  } = useDuckDB({
     id: `duckdb-session-${sessionId}`,
     name: `DuckDB Session ${sessionId}`,
   })

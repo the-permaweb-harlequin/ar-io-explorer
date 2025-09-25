@@ -44,7 +44,7 @@ export function ARFSParquetNotebook({ className }: ARFSParquetNotebookProps) {
   const [historyIndex, setHistoryIndex] = useState(-1)
   const terminalRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
-  
+
   // Use the same ARFS explorer DuckDB instance
   const { db, loading, error } = useDuckDB({
     id: 'arfs-explorer',
@@ -60,15 +60,33 @@ export function ARFSParquetNotebook({ className }: ARFSParquetNotebookProps) {
         id: 'welcome',
         query: '-- Welcome to ARFS Parquet Notebook',
         result: [
-          { message: 'ARFS Parquet Notebook - Connected to arfs-explorer DuckDB instance' },
+          {
+            message:
+              'ARFS Parquet Notebook - Connected to arfs-explorer DuckDB instance',
+          },
           { message: 'Available datasets:' },
-          { message: "• Tags: 'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet'" },
-          { message: "• Transactions: 'http://localhost:4000/local/datasets/transactions/data/height%3D911404-1094394/transactions.parquet'" },
-          { message: "• Blocks: 'http://localhost:4000/local/datasets/blocks/data/height%3D911404-1094394/blocks.parquet'" },
+          {
+            message:
+              "• Tags: 'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet'",
+          },
+          {
+            message:
+              "• Transactions: 'http://localhost:4000/local/datasets/transactions/data/height%3D911404-1094394/transactions.parquet'",
+          },
+          {
+            message:
+              "• Blocks: 'http://localhost:4000/local/datasets/blocks/data/height%3D911404-1094394/blocks.parquet'",
+          },
           { message: '' },
           { message: 'Try these queries to explore the data structure:' },
-          { message: "DESCRIBE 'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet'" },
-          { message: "SELECT * FROM 'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet' LIMIT 5" },
+          {
+            message:
+              "DESCRIBE 'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet'",
+          },
+          {
+            message:
+              "SELECT * FROM 'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet' LIMIT 5",
+          },
           { message: '' },
           { message: 'Press Ctrl+Enter to execute queries.' },
         ],
@@ -105,13 +123,13 @@ export function ARFSParquetNotebook({ className }: ARFSParquetNotebookProps) {
       )
 
       await connection.close()
-    } catch (error) {
+    } catch (err) {
       setQueryHistory((prev) =>
         prev.map((q) =>
           q.id === queryId
             ? {
                 ...q,
-                error: error instanceof Error ? error.message : 'Unknown error',
+                error: err instanceof Error ? err.message : 'Unknown error',
                 isLoading: false,
               }
             : q,
@@ -161,7 +179,9 @@ export function ARFSParquetNotebook({ className }: ARFSParquetNotebookProps) {
       <div className="flex h-64 items-center justify-center">
         <div className="flex items-center space-x-2">
           <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-          <span className="text-muted-foreground">Initializing ARFS DuckDB instance...</span>
+          <span className="text-muted-foreground">
+            Initializing ARFS DuckDB instance...
+          </span>
         </div>
       </div>
     )
@@ -171,7 +191,9 @@ export function ARFSParquetNotebook({ className }: ARFSParquetNotebookProps) {
     return (
       <div className="flex h-64 items-center justify-center">
         <div className="text-center">
-          <p className="text-destructive">Failed to initialize DuckDB instance</p>
+          <p className="text-destructive">
+            Failed to initialize DuckDB instance
+          </p>
           <p className="text-sm text-muted-foreground">{error.message}</p>
         </div>
       </div>
@@ -184,24 +206,67 @@ export function ARFSParquetNotebook({ className }: ARFSParquetNotebookProps) {
       <div className="space-y-2">
         <h1 className="text-2xl font-bold">ARFS Parquet Notebook</h1>
         <p className="text-muted-foreground">
-          Explore the ARFS data using SQL queries on the parquet files. This terminal is connected to the same DuckDB instance as the ARFS Explorer.
+          Explore the ARFS data using SQL queries on the parquet files. This
+          terminal is connected to the same DuckDB instance as the ARFS
+          Explorer.
         </p>
-        
+
         {/* Quick reference */}
-        <div className="rounded-lg border bg-muted/50 p-4">
+        <div className="bg-muted/50 rounded-lg border p-4">
           <h3 className="mb-2 font-semibold">Quick Reference</h3>
           <div className="space-y-1 text-sm">
-            <p><strong>Tags:</strong> <code>'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet'</code></p>
-            <p><strong>Transactions:</strong> <code>'http://localhost:4000/local/datasets/transactions/data/height%3D911404-1094394/transactions.parquet'</code></p>
-            <p><strong>Blocks:</strong> <code>'http://localhost:4000/local/datasets/blocks/data/height%3D911404-1094394/blocks.parquet'</code></p>
+            <p>
+              <strong>Tags:</strong>{' '}
+              <code>
+                'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet'
+              </code>
+            </p>
+            <p>
+              <strong>Transactions:</strong>{' '}
+              <code>
+                'http://localhost:4000/local/datasets/transactions/data/height%3D911404-1094394/transactions.parquet'
+              </code>
+            </p>
+            <p>
+              <strong>Blocks:</strong>{' '}
+              <code>
+                'http://localhost:4000/local/datasets/blocks/data/height%3D911404-1094394/blocks.parquet'
+              </code>
+            </p>
           </div>
-          
+
           <h4 className="mb-1 mt-3 font-medium">Useful Queries:</h4>
-          <div className="space-y-1 text-sm font-mono">
-            <p>• <code>DESCRIBE 'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet'</code></p>
-            <p>• <code>DESCRIBE 'http://localhost:4000/local/datasets/transactions/data/height%3D911404-1094394/transactions.parquet'</code></p>
-            <p>• <code>SELECT * FROM 'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet' LIMIT 5</code></p>
-            <p>• <code>SELECT DISTINCT CAST(tag_name AS VARCHAR) FROM 'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet' LIMIT 20</code></p>
+          <div className="space-y-1 font-mono text-sm">
+            <p>
+              •{' '}
+              <code>
+                DESCRIBE
+                'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet'
+              </code>
+            </p>
+            <p>
+              •{' '}
+              <code>
+                DESCRIBE
+                'http://localhost:4000/local/datasets/transactions/data/height%3D911404-1094394/transactions.parquet'
+              </code>
+            </p>
+            <p>
+              •{' '}
+              <code>
+                SELECT * FROM
+                'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet'
+                LIMIT 5
+              </code>
+            </p>
+            <p>
+              •{' '}
+              <code>
+                SELECT DISTINCT CAST(tag_name AS VARCHAR) FROM
+                'http://localhost:4000/local/datasets/tags/data/height%3D911404-1094394/tags.parquet'
+                LIMIT 20
+              </code>
+            </p>
           </div>
         </div>
       </div>
@@ -215,7 +280,9 @@ export function ARFSParquetNotebook({ className }: ARFSParquetNotebookProps) {
               <div className="h-3 w-3 rounded-full bg-red-500" />
               <div className="h-3 w-3 rounded-full bg-yellow-500" />
               <div className="h-3 w-3 rounded-full bg-green-500" />
-              <span className="ml-2 text-sm font-medium">ARFS Parquet Notebook</span>
+              <span className="ml-2 text-sm font-medium">
+                ARFS Parquet Notebook
+              </span>
             </div>
             <Button variant="ghost" size="sm" onClick={clearHistory}>
               Clear
@@ -242,39 +309,72 @@ export function ARFSParquetNotebook({ className }: ARFSParquetNotebookProps) {
                         <div key={i} className="text-foreground">
                           {typeof row === 'object' && row.message
                             ? row.message
-                            : JSON.stringify(row, (key, value) => {
-                                if (typeof value === 'bigint') {
-                                  return value.toString()
-                                }
-                                // Handle byte arrays (objects with numeric keys)
-                                if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-                                  const keys = Object.keys(value)
-                                  if (keys.length > 0 && keys.every(k => /^\d+$/.test(k))) {
-                                    const bytes = keys.map(k => value[k]).filter(b => typeof b === 'number')
-                                    
-                                    // For Arweave ID fields, convert to base64url format
-                                    if (key === 'id' || key === 'owner' || key === 'target' || key === 'anchor' || 
-                                        key === 'data_root' || key === 'parent' || key === 'root_transaction_id' ||
-                                        bytes.length === 32 || bytes.length === 64) {
-                                      const hex = bytes.map(b => b.toString(16).padStart(2, '0')).join('')
-                                      return hexToBase64Url(hex)
-                                    }
-                                    
-                                    // For text fields like tag_name, tag_value, try to convert to string
-                                    if (key === 'tag_name' || key === 'tag_value' || key === 'content_type') {
-                                      try {
-                                        return String.fromCharCode(...bytes)
-                                      } catch {
-                                        return `[${bytes.length} bytes]`
-                                      }
-                                    }
-                                    
-                                    // Default: show as hex for other binary data
-                                    return bytes.map(b => b.toString(16).padStart(2, '0')).join('')
+                            : JSON.stringify(
+                                row,
+                                (key, value) => {
+                                  if (typeof value === 'bigint') {
+                                    return value.toString()
                                   }
-                                }
-                                return value
-                              }, 2)}
+                                  // Handle byte arrays (objects with numeric keys)
+                                  if (
+                                    typeof value === 'object' &&
+                                    value !== null &&
+                                    !Array.isArray(value)
+                                  ) {
+                                    const keys = Object.keys(value)
+                                    if (
+                                      keys.length > 0 &&
+                                      keys.every((k) => /^\d+$/.test(k))
+                                    ) {
+                                      const bytes = keys
+                                        .map((k) => value[k])
+                                        .filter((b) => typeof b === 'number')
+
+                                      // For Arweave ID fields, convert to base64url format
+                                      if (
+                                        key === 'id' ||
+                                        key === 'owner' ||
+                                        key === 'target' ||
+                                        key === 'anchor' ||
+                                        key === 'data_root' ||
+                                        key === 'parent' ||
+                                        key === 'root_transaction_id' ||
+                                        bytes.length === 32 ||
+                                        bytes.length === 64
+                                      ) {
+                                        const hex = bytes
+                                          .map((b) =>
+                                            b.toString(16).padStart(2, '0'),
+                                          )
+                                          .join('')
+                                        return hexToBase64Url(hex)
+                                      }
+
+                                      // For text fields like tag_name, tag_value, try to convert to string
+                                      if (
+                                        key === 'tag_name' ||
+                                        key === 'tag_value' ||
+                                        key === 'content_type'
+                                      ) {
+                                        try {
+                                          return String.fromCharCode(...bytes)
+                                        } catch {
+                                          return `[${bytes.length} bytes]`
+                                        }
+                                      }
+
+                                      // Default: show as hex for other binary data
+                                      return bytes
+                                        .map((b) =>
+                                          b.toString(16).padStart(2, '0'),
+                                        )
+                                        .join('')
+                                    }
+                                  }
+                                  return value
+                                },
+                                2,
+                              )}
                         </div>
                       ))}
                     </div>

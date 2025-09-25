@@ -45,7 +45,11 @@ const navigationSections = [
     name: 'ArFS',
     items: [
       { name: 'Explorer', href: '/arfs/explorer', icon: FolderOpen },
-      { name: 'Parquet Notebook', href: '/arfs/parquet-notebook', icon: NotebookPen },
+      {
+        name: 'Parquet Notebook',
+        href: '/arfs/parquet-notebook',
+        icon: NotebookPen,
+      },
     ],
   },
   {
