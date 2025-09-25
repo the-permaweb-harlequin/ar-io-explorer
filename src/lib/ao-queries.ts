@@ -172,6 +172,13 @@ export function useInfiniteOutgoingMessages(
           ? transactions.edges[transactions.edges.length - 1]?.cursor
           : undefined
       },
+      queryKey: [
+        'infinite-outgoing-messages',
+        entityId,
+        limit,
+        ascending,
+        isProcess,
+      ],
     },
   )
 }
@@ -209,6 +216,7 @@ export function useInfiniteIncomingMessages(
           ? lastPage.transactions.edges[lastPage.transactions.edges.length - 1]
               ?.cursor
           : undefined,
+      queryKey: ['infinite-incoming-messages', entityId, limit, ascending],
     },
   )
 }
@@ -246,6 +254,7 @@ export function useInfiniteTokenTransfers(
           ? lastPage.transactions.edges[lastPage.transactions.edges.length - 1]
               ?.cursor
           : undefined,
+      queryKey: ['infinite-token-transfers', entityId, limit, ascending],
     },
   )
 }
@@ -290,6 +299,13 @@ export function useInfiniteSpawnedProcesses(
           ? transactions.edges[transactions.edges.length - 1]?.cursor
           : undefined
       },
+      queryKey: [
+        'infinite-spawned-processes',
+        entityId,
+        limit,
+        ascending,
+        isProcess,
+      ],
     },
   )
 }
@@ -358,6 +374,14 @@ export function useInfiniteProcesses(
           ? lastPage.transactions.edges[lastPage.transactions.edges.length - 1]
               ?.cursor
           : undefined,
+      queryKey: [
+        'infinite-processes',
+        limit,
+        ascending,
+        moduleId,
+        extraFilters,
+        _owners,
+      ],
     },
   )
 }
@@ -384,6 +408,7 @@ export function useInfiniteModules(limit = 100, ascending = false) {
           ? lastPage.transactions.edges[lastPage.transactions.edges.length - 1]
               ?.cursor
           : undefined,
+      queryKey: ['infinite-modules', limit, ascending],
     },
   )
 }
@@ -432,6 +457,14 @@ export function useInfiniteResultingMessages(
           ? transactions.edges[transactions.edges.length - 1]?.cursor
           : undefined
       },
+      queryKey: [
+        'infinite-resulting-messages',
+        fromProcessId,
+        msgRefs,
+        limit,
+        ascending,
+        useOldRefSymbol,
+      ],
     },
   )
 }
@@ -469,6 +502,7 @@ export function useInfiniteLinkedMessages(
           ? lastPage.transactions.edges[lastPage.transactions.edges.length - 1]
               ?.cursor
           : undefined,
+      queryKey: ['infinite-linked-messages', messageId, limit, ascending],
     },
   )
 }
@@ -506,6 +540,7 @@ export function useInfiniteMessagesForBlock(
           ? lastPage.transactions.edges[lastPage.transactions.edges.length - 1]
               ?.cursor
           : undefined,
+      queryKey: ['infinite-messages-for-block', blockHeight, limit, ascending],
     },
   )
 }
@@ -573,6 +608,7 @@ export function useInfiniteAllMessages(
           ? lastPage.transactions.edges[lastPage.transactions.edges.length - 1]
               ?.cursor
           : undefined,
+      queryKey: ['infinite-all-messages', limit, ascending, extraFilters],
     },
   )
 }
@@ -610,6 +646,7 @@ export function useInfiniteEvalMessages(
           ? lastPage.transactions.edges[lastPage.transactions.edges.length - 1]
               ?.cursor
           : undefined,
+      queryKey: ['infinite-all-messages', limit, ascending],
     },
   )
 }
@@ -651,6 +688,7 @@ export function useInfiniteOwnedDomainsHistory(
           ? lastPage.transactions.edges[lastPage.transactions.edges.length - 1]
               ?.cursor
           : undefined,
+      queryKey: ['infinite-owned-domains-history', entityId, limit, ascending],
     },
   )
 }
@@ -688,6 +726,12 @@ export function useInfiniteSetRecordsToEntityId(
           ? lastPage.transactions.edges[lastPage.transactions.edges.length - 1]
               ?.cursor
           : undefined,
+      queryKey: [
+        'infinite-set-records-to-entity-id',
+        entityId,
+        limit,
+        ascending,
+      ],
     },
   )
 }
@@ -713,21 +757,24 @@ export async function getMessageById(id: string): Promise<AoMessage | null> {
       tags[tag.name] = tag.value
     })
 
-    const fromParsed = parseTransactionOwner(node.owner)
+    const fromParsed = parseTransactionOwner({
+      address: node.owner.address,
+      key: node.owner.address,
+    })
 
     return {
       id: node.id,
-      to: node.recipient,
+      to: (node as any).recipient || '',
       from: fromParsed.address, // Use the parsed address (0x for Ethereum, normalized for Arweave)
       fromParsed,
       type: tags['Type'] || 'Message',
       tags,
       block: node.block,
       data: node.data,
-      fee: node.fee,
-      quantity: node.quantity,
-      bundledIn: node.bundledIn,
-      ingested_at: node.ingested_at,
+      fee: (node as any).fee || { winston: '0', ar: '0' },
+      quantity: (node as any).quantity || { winston: '0', ar: '0' },
+      bundledIn: (node as any).bundledIn || null,
+      ingested_at: (node as any).ingested_at || null,
     }
   } catch (error) {
     console.error('Error fetching message by ID:', error)

@@ -16,3 +16,4 @@ generates:
       legacyMode: false
       rawRequest: false
       pureMagicComment: false
+      reactQueryVersion: 5

@@ -17,7 +17,7 @@ import {
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import ReactDOM from 'react-dom/client'
 
-import App from './App.tsx'
+import Dashboard from './Dashboard.tsx'
 import { NotFound } from './components/NotFound.tsx'
 import { Layout } from './components/layout.tsx'
 import { ThemeProvider } from './components/theme-provider'
@@ -62,7 +62,7 @@ const rootRoute = createRootRoute({
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/',
-  component: App,
+  component: Dashboard,
 })
 
 const routeTree = rootRoute.addChildren([

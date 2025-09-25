@@ -2,6 +2,16 @@ import { openDB } from 'idb'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
+import {
+  DEFAULT_ARIO_PROCESS_ID,
+  DEFAULT_CU_URL,
+  DEFAULT_DATABASE_URL,
+  DEFAULT_GATEWAY_URL,
+  DEFAULT_HYPERBEAM_NODE_URL,
+  DEFAULT_TURBO_PAYMENT_URL,
+  DEFAULT_TURBO_UPLOAD_URL,
+} from '@/constants'
+
 // Theme type
 export type Theme = 'light' | 'dark' | 'system'
 
@@ -13,6 +23,7 @@ export interface AppConfig {
   hyperbeamNodeUrl: string
   turboPaymentUrl: string
   turboUploadUrl: string
+  arioProcessId: string
   useLocalNode?: boolean // Flag to indicate if local node should be used
 }
 
@@ -27,23 +38,25 @@ const isLocalDevelopment = () => {
 
 // Local development configuration
 export const localConfig: AppConfig = {
-  gatewayUrl: 'http://localhost:4000',
-  databaseUrl: 'http://localhost:4000/graphql',
-  cuUrl: 'http://localhost:4000',
-  hyperbeamNodeUrl: 'https://hyperbeam.ar-io.dev', // Use public endpoint for now
-  turboPaymentUrl: 'https://payment.ardrive.io',
-  turboUploadUrl: 'https://upload.ardrive.io',
+  gatewayUrl: DEFAULT_GATEWAY_URL,
+  databaseUrl: DEFAULT_DATABASE_URL,
+  cuUrl: DEFAULT_CU_URL,
+  hyperbeamNodeUrl: DEFAULT_HYPERBEAM_NODE_URL, // Use public endpoint for now
+  turboPaymentUrl: DEFAULT_TURBO_PAYMENT_URL,
+  turboUploadUrl: DEFAULT_TURBO_UPLOAD_URL,
+  arioProcessId: DEFAULT_ARIO_PROCESS_ID,
   useLocalNode: true,
 }
-
 // Production configuration values
+
 export const productionConfig: AppConfig = {
-  gatewayUrl: 'https://arweave.net',
-  databaseUrl: 'https://clickhouse.ar-io.dev',
-  cuUrl: 'https://cu.ar-io.dev',
-  hyperbeamNodeUrl: 'https://hyperbeam.ar-io.dev',
-  turboPaymentUrl: 'https://payment.ardrive.io',
-  turboUploadUrl: 'https://upload.ardrive.io',
+  gatewayUrl: DEFAULT_GATEWAY_URL,
+  databaseUrl: DEFAULT_DATABASE_URL,
+  cuUrl: DEFAULT_CU_URL,
+  hyperbeamNodeUrl: DEFAULT_HYPERBEAM_NODE_URL,
+  turboPaymentUrl: DEFAULT_TURBO_PAYMENT_URL,
+  turboUploadUrl: DEFAULT_TURBO_UPLOAD_URL,
+  arioProcessId: DEFAULT_ARIO_PROCESS_ID,
   useLocalNode: false,
 }
 

@@ -4,13 +4,25 @@ import { RotateCcw } from 'lucide-react'
 
 import { SettingInput } from '@/components/SettingInput'
 import { Button } from '@/components/ui/button'
+import {
+  DEFAULT_ARIO_PROCESS_ID,
+  DEFAULT_CU_URL,
+  DEFAULT_DATABASE_URL,
+  DEFAULT_GATEWAY_URL,
+  DEFAULT_HYPERBEAM_NODE_URL,
+  DEFAULT_TURBO_PAYMENT_URL,
+  DEFAULT_TURBO_UPLOAD_URL,
+} from '@/constants'
 import { AppConfig, defaultConfig, useAppStore } from '@/store/app-store'
+
+// Type for string-only config fields that can be edited in the UI
+type StringConfigKeys = Exclude<keyof AppConfig, 'useLocalNode'>
 
 export function Settings() {
   const { config, setConfig, resetConfig } = useAppStore()
   const [formData, setFormData] = useState<AppConfig>(config)
   const [fieldStatus, setFieldStatus] = useState<
-    Record<keyof AppConfig, 'idle' | 'saving' | 'saved' | 'error'>
+    Record<StringConfigKeys, 'idle' | 'saving' | 'saved' | 'error'>
   >({
     gatewayUrl: 'idle',
     databaseUrl: 'idle',
@@ -18,6 +30,7 @@ export function Settings() {
     hyperbeamNodeUrl: 'idle',
     turboPaymentUrl: 'idle',
     turboUploadUrl: 'idle',
+    arioProcessId: 'idle',
   })
 
   // Update form data when config changes (e.g., from persistence)
@@ -27,44 +40,50 @@ export function Settings() {
 
   const configFields = [
     {
-      key: 'gatewayUrl' as keyof AppConfig,
+      key: 'gatewayUrl' as StringConfigKeys,
       label: 'Gateway URL',
       description: 'Primary Arweave gateway for data retrieval',
-      placeholder: 'https://arweave.net',
+      placeholder: DEFAULT_GATEWAY_URL,
     },
     {
-      key: 'databaseUrl' as keyof AppConfig,
+      key: 'databaseUrl' as StringConfigKeys,
       label: 'Database URL',
       description: 'ClickHouse database URL or ArNS parquet host',
-      placeholder: 'https://clickhouse.ar-io.dev',
+      placeholder: DEFAULT_DATABASE_URL,
     },
     {
-      key: 'cuUrl' as keyof AppConfig,
+      key: 'cuUrl' as StringConfigKeys,
       label: 'Compute Unit (CU) URL',
       description: 'AO Compute Unit endpoint for process execution',
-      placeholder: 'https://cu.ar-io.dev',
+      placeholder: DEFAULT_CU_URL,
     },
     {
-      key: 'hyperbeamNodeUrl' as keyof AppConfig,
+      key: 'hyperbeamNodeUrl' as StringConfigKeys,
       label: 'Hyperbeam Node URL',
       description: 'Hyperbeam node for enhanced data processing',
-      placeholder: 'https://hyperbeam.ar-io.dev',
+      placeholder: DEFAULT_HYPERBEAM_NODE_URL,
     },
     {
-      key: 'turboPaymentUrl' as keyof AppConfig,
+      key: 'turboPaymentUrl' as StringConfigKeys,
       label: 'Turbo Payment URL',
       description: 'Turbo payment service endpoint',
-      placeholder: 'https://payment.ardrive.io',
+      placeholder: DEFAULT_TURBO_PAYMENT_URL,
     },
     {
-      key: 'turboUploadUrl' as keyof AppConfig,
+      key: 'turboUploadUrl' as StringConfigKeys,
       label: 'Turbo Upload URL',
       description: 'Turbo upload service endpoint',
-      placeholder: 'https://upload.ardrive.io',
+      placeholder: DEFAULT_TURBO_UPLOAD_URL,
+    },
+    {
+      key: 'arioProcessId' as StringConfigKeys,
+      label: 'AR.IO Process ID',
+      description: 'Arweave transaction ID for the AR.IO process',
+      placeholder: DEFAULT_ARIO_PROCESS_ID,
     },
   ]
 
-  const handleInputChange = (key: keyof AppConfig, value: string) => {
+  const handleInputChange = (key: StringConfigKeys, value: string) => {
     const newFormData = { ...formData, [key]: value }
     setFormData(newFormData)
 
@@ -72,7 +91,7 @@ export function Settings() {
     setFieldStatus((prev) => ({ ...prev, [key]: 'idle' }))
   }
 
-  const handleFieldSave = async (key: keyof AppConfig) => {
+  const handleFieldSave = async (key: StringConfigKeys) => {
     setFieldStatus((prev) => ({ ...prev, [key]: 'saving' }))
 
     try {
@@ -98,7 +117,7 @@ export function Settings() {
     }
   }
 
-  const handleFieldReset = (key: keyof AppConfig) => {
+  const handleFieldReset = (key: StringConfigKeys) => {
     setFormData((prev) => ({ ...prev, [key]: config[key] }))
     setFieldStatus((prev) => ({ ...prev, [key]: 'idle' }))
   }
@@ -113,6 +132,7 @@ export function Settings() {
       hyperbeamNodeUrl: 'idle',
       turboPaymentUrl: 'idle',
       turboUploadUrl: 'idle',
+      arioProcessId: 'idle',
     })
   }
 

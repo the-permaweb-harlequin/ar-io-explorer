@@ -11,7 +11,7 @@ services:
       # Core configuration
       - GRAPHQL_HOST=arweave.net
       - GRAPHQL_PORT=443
-      - START_HEIGHT=1000000
+      - START_HEIGHT=1761055
       - ARNS_ROOT_HOST=localhost
 
       # Enable datasets endpoint
