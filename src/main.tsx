@@ -24,6 +24,8 @@ import { ThemeProvider } from './components/theme-provider'
 import * as TanStackQueryProvider from './integrations/tanstack-query/root-provider.tsx'
 import reportWebVitals from './reportWebVitals.ts'
 import NotFoundRoute from './routes/404.tsx'
+import ARFSExplorerRoute from './routes/arfs-explorer.tsx'
+import ARFSParquetNotebookRoute from './routes/arfs-parquet-notebook.tsx'
 import MessagesRoute from './routes/messages.tsx'
 import ModulesRoute from './routes/modules.tsx'
 import ProcessesRoute from './routes/processes.tsx'
@@ -70,6 +72,8 @@ const routeTree = rootRoute.addChildren([
   ProcessesRoute(rootRoute),
   MessagesRoute(rootRoute),
   ModulesRoute(rootRoute),
+  ARFSExplorerRoute(rootRoute),
+  ARFSParquetNotebookRoute(rootRoute),
   SettingsRoute(rootRoute),
   NotFoundRoute(rootRoute),
 ])

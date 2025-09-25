@@ -19,7 +19,7 @@ export * from './utils/tempfile'
 export * from './utils/infer-types'
 
 // Re-export DuckDB types for convenience
-export { AsyncDuckDB, DuckDBConfig } from '@duckdb/duckdb-wasm'
+export { AsyncDuckDB } from '@duckdb/duckdb-wasm'
 export { Table as Arrow } from 'apache-arrow'
 
 // Main convenience functions

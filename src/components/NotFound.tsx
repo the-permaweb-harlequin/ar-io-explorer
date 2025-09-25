@@ -6,10 +6,12 @@ import {
   Database,
   FileCode,
   FileText,
+  FolderOpen,
   Globe,
   Home,
   Layers,
   Network,
+  NotebookPen,
   Settings,
   Terminal,
   Upload,
@@ -88,6 +90,19 @@ export function NotFound() {
       description: 'View AR.IO gateway network status',
       path: '/gateways',
       icon: Network,
+    },
+    // ArFS Section
+    {
+      title: 'ArFS Explorer',
+      description: 'Browse Arweave File System (ArFS) drives',
+      path: '/arfs/explorer',
+      icon: FolderOpen,
+    },
+    {
+      title: 'ARFS Parquet Notebook',
+      description: 'Explore ARFS data with SQL queries on parquet files',
+      path: '/arfs/parquet-notebook',
+      icon: NotebookPen,
     },
     // Tools Section
     {

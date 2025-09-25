@@ -1,4 +1,4 @@
-import { AsyncDuckDB, DuckDBConfig } from '@duckdb/duckdb-wasm'
+import { AsyncDuckDB } from '@duckdb/duckdb-wasm'
 import { Table as Arrow } from 'apache-arrow'
 
 /**
@@ -8,7 +8,7 @@ export interface DuckDBInstanceConfig {
   /** Unique identifier for this database instance */
   id: string
   /** Optional DuckDB configuration */
-  config?: DuckDBConfig
+  config?: any
   /** Enable debug logging for this instance */
   debug?: boolean
   /** Optional name for this instance (for debugging/display) */

@@ -8,9 +8,11 @@ import {
   Database,
   FileCode,
   FileText,
+  FolderOpen,
   Globe,
   Layers,
   Network,
+  NotebookPen,
   Upload,
   Wallet,
   Zap,
@@ -37,6 +39,13 @@ const navigationSections = [
       { name: 'ANTs', href: '/ants', icon: FileText },
       { name: 'ANT Registry', href: '/ant-registry', icon: Database },
       { name: 'Gateways', href: '/gateways', icon: Network },
+    ],
+  },
+  {
+    name: 'ArFS',
+    items: [
+      { name: 'Explorer', href: '/arfs/explorer', icon: FolderOpen },
+      { name: 'Parquet Notebook', href: '/arfs/parquet-notebook', icon: NotebookPen },
     ],
   },
   {
