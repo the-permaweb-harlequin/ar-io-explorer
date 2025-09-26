@@ -14,7 +14,7 @@ import {
 } from '../index'
 
 export const BasicDuckDBExample: React.FC = () => {
-  const [file, setFile] = useState<File | null>(null)
+  const [, setFile] = useState<File | null>(null)
   const [tableName, setTableName] = useState('my_table')
 
   // Use the default instance

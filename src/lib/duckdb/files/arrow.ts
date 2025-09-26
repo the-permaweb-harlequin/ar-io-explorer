@@ -37,7 +37,7 @@ export const arrayBufferToArrow = (arrayBuffer: ArrayBuffer): Arrow => {
  */
 export const arrowToArrayBuffer = (arrow: Arrow): ArrayBuffer => {
   const array = tableToIPC(arrow, 'file')
-  return array.buffer
+  return array.buffer as ArrayBuffer
 }
 
 /**

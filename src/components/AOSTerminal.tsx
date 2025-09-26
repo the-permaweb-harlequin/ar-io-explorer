@@ -28,9 +28,8 @@ export function AOSTerminal({ sessionProcessId }: AOSTerminalProps) {
   const [terminal, setTerminal] = useState<Terminal | null>(null)
   const [fitAddon, setFitAddon] = useState<FitAddon | null>(null)
   const [isTerminalInitialized, setIsTerminalInitialized] = useState(false)
-  const [currentLine, setCurrentLine] = useState('')
   const [commandHistory, setCommandHistory] = useState<string[]>([])
-  const [historyIndex, setHistoryIndex] = useState(-1)
+  const [, setHistoryIndex] = useState(-1)
 
   const handleDisconnect = useCallback(() => {
     disconnectProcess()

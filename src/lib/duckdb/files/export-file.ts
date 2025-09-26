@@ -125,7 +125,7 @@ export const exportCsvFromInstance = async (
   const buffer = await db.copyFileToBuffer(tempFile)
   await db.dropFile(tempFile)
 
-  return new File([buffer], filename, { type: CSV_MIME_TYPE })
+  return new File([buffer as BlobPart], filename, { type: CSV_MIME_TYPE })
 }
 
 /**
@@ -149,7 +149,7 @@ export const exportParquetFromInstance = async (
   const buffer = await db.copyFileToBuffer(tempFile)
   await db.dropFile(tempFile)
 
-  return new File([buffer], filename, { type: PARQUET_MIME_TYPE })
+  return new File([buffer as BlobPart], filename, { type: PARQUET_MIME_TYPE })
 }
 
 /**

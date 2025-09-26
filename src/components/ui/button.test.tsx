@@ -33,7 +33,7 @@ describe('Button', () => {
 
   test('handles click events', async () => {
     const user = userEvent.setup()
-    const handleClick = vi.fn()
+    const handleClick = () => {}
 
     render(<Button onClick={handleClick}>Click me</Button>)
     const button = screen.getByRole('button', { name: 'Click me' })

@@ -23,7 +23,7 @@ export const runQuery = async (
       logElapsedTime(`Run query: ${sql}`, start)
     }
 
-    return arrow
+    return arrow as any
   } catch (error) {
     console.error('DuckDB query failed:', { sql, error })
     throw new DuckDBQueryError(

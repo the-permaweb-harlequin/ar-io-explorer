@@ -22,6 +22,8 @@ import { NotFound } from './components/NotFound.tsx'
 import { Layout } from './components/layout.tsx'
 import { ThemeProvider } from './components/theme-provider'
 import * as TanStackQueryProvider from './integrations/tanstack-query/root-provider.tsx'
+// Import console recovery utils for debugging
+import './lib/duckdb/console-recovery-utils'
 import reportWebVitals from './reportWebVitals.ts'
 import NotFoundRoute from './routes/404.tsx'
 import ARFSExplorerRoute from './routes/arfs-explorer.tsx'

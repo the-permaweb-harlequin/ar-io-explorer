@@ -92,18 +92,31 @@ class DuckDBInstanceManager {
 
       // Apply configuration if provided
       if (config.config) {
+        // For persistent databases, we need to distinguish between:
+        // 1. Loading an existing database file from a URL (starts with http/https)
+        // 2. Creating/opening a persistent database in IndexedDB (just a filename)
+        
         if (config.config.path) {
-          const res = await fetch(config.config.path)
-          const buffer = await res.arrayBuffer()
-          const fileNameMatch = config.config.path.match(/[^/]*$/)
-          if (fileNameMatch) {
-            config.config.path = fileNameMatch[0]
+          if (config.config.path.startsWith('http://') || config.config.path.startsWith('https://')) {
+            // This is a URL to an existing database file - fetch and register it
+            console.log(`📥 Loading database from URL: ${config.config.path}`)
+            const res = await fetch(config.config.path)
+            const buffer = await res.arrayBuffer()
+            const fileNameMatch = config.config.path.match(/[^/]*$/)
+            if (fileNameMatch) {
+              config.config.path = fileNameMatch[0]
+            }
+            await db.registerFileBuffer(
+              config.config.path,
+              new Uint8Array(buffer),
+            )
+          } else {
+            // This is a filename for persistent storage in IndexedDB
+            // DuckDB-WASM will automatically handle IndexedDB persistence
+            console.log(`💾 Using persistent database: ${config.config.path}`)
           }
-          await db.registerFileBuffer(
-            config.config.path,
-            new Uint8Array(buffer),
-          )
         }
+        
         await db.open(config.config)
       }
 
