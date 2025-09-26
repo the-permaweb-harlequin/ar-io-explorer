@@ -35,5 +35,8 @@ export function useARNSDomains() {
 
       return domains
     },
+    staleTime: 1000 * 60 * 60 * 24, // 24 hours
+    refetchInterval: 1000 * 60 * 60 * 24, // Refetch every 24 hours
+    refetchOnWindowFocus: false, // Don't refetch on window focus
   })
 }

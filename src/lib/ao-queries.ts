@@ -139,13 +139,20 @@ export function useOutgoingMessages(
   ascending = false,
   isProcess = false,
 ) {
-  return useGetOutgoingMessagesQuery(graphqlClient, {
-    entityId,
-    limit,
-    sortOrder: ascending ? SortOrder.HeightAsc : SortOrder.HeightDesc,
-    cursor: cursor || undefined,
-    isProcess,
-  })
+  return useGetOutgoingMessagesQuery(
+    graphqlClient,
+    {
+      entityId,
+      limit,
+      sortOrder: ascending ? SortOrder.HeightAsc : SortOrder.HeightDesc,
+      cursor: cursor || undefined,
+      isProcess,
+    },
+    {
+      staleTime: 1000 * 60 * 60 * 24, // 24 hours
+      refetchOnWindowFocus: false,
+    },
+  )
 }
 
 export function useInfiniteOutgoingMessages(
@@ -179,6 +186,8 @@ export function useInfiniteOutgoingMessages(
         ascending,
         isProcess,
       ],
+      staleTime: 1000 * 60 * 60 * 24, // 24 hours
+      refetchOnWindowFocus: false,
     },
   )
 }
@@ -189,12 +198,19 @@ export function useIncomingMessages(
   cursor = '',
   ascending = false,
 ) {
-  return useGetIncomingMessagesQuery(graphqlClient, {
-    entityId,
-    limit,
-    sortOrder: ascending ? SortOrder.HeightAsc : SortOrder.HeightDesc,
-    cursor: cursor || undefined,
-  })
+  return useGetIncomingMessagesQuery(
+    graphqlClient,
+    {
+      entityId,
+      limit,
+      sortOrder: ascending ? SortOrder.HeightAsc : SortOrder.HeightDesc,
+      cursor: cursor || undefined,
+    },
+    {
+      staleTime: 1000 * 60 * 60 * 24, // 24 hours
+      refetchOnWindowFocus: false,
+    },
+  )
 }
 
 export function useInfiniteIncomingMessages(
@@ -652,7 +668,14 @@ export function useInfiniteEvalMessages(
 }
 
 export function useNetworkStats() {
-  return useGetNetworkStatsQuery(graphqlClient, {})
+  return useGetNetworkStatsQuery(
+    graphqlClient,
+    {},
+    {
+      staleTime: 1000 * 60 * 60 * 24, // 24 hours
+      refetchOnWindowFocus: false,
+    },
+  )
 }
 
 export function useOwnedDomainsHistory(

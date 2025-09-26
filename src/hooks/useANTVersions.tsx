@@ -77,7 +77,7 @@ export function useANTProcessMetadata(ants: string[]) {
       const batchResults = await Promise.all(batchPromises)
       return batchResults.flat()
     },
-    staleTime: 1000 * 60 * 60 * 24,
+    staleTime: Infinity, // Infinite - transaction data is immutable
     enabled: !!ants.length,
     refetchOnWindowFocus: false,
   })
