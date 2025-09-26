@@ -1,9 +1,11 @@
 import { useMemo, useState } from 'react'
 
+import { useQueryClient } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { Check, Copy } from 'lucide-react'
+import { Check, Copy, Download, RefreshCw } from 'lucide-react'
 import { Bar, BarChart, Cell, XAxis, YAxis } from 'recharts'
 
+import { Button } from '@/components/ui/button'
 import {
   ChartConfig,
   ChartContainer,
@@ -35,7 +37,9 @@ export function ANTVersionsStatistics({
 }: ANTVersionsStatisticsProps) {
   const statistics = useANTStatistics()
   const { data: antVersions } = useANTVersions()
+  const queryClient = useQueryClient()
   const [copiedLatestVersion, setCopiedLatestVersion] = useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false)
 
   // Copy to clipboard helper for latest version
   const copyLatestVersion = async () => {
@@ -48,6 +52,58 @@ export function ANTVersionsStatistics({
         console.error('Failed to copy:', err)
       }
     }
+  }
+
+  // Refresh ARNS and ANT versions data
+  const handleRefresh = async () => {
+    setIsRefreshing(true)
+    try {
+      // Invalidate ARNS domains and ANT versions queries (NOT GraphQL queries)
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['arns-domains'] }),
+        queryClient.invalidateQueries({ queryKey: ['ant-versions'] }),
+      ])
+    } catch (error) {
+      console.error('Failed to refresh data:', error)
+    } finally {
+      setIsRefreshing(false)
+    }
+  }
+
+  // Export version distribution data to CSV
+  const handleCSVExport = () => {
+    if (!chartData.length) return
+
+    // Create CSV headers
+    const headers = ['Version', 'Module ID', 'Count', 'Percentage']
+
+    // Create CSV rows
+    const rows = chartData.map((item) => [
+      item.versionNumber || 'Unknown',
+      item.fullModuleId,
+      item.count.toString(),
+      `${item.percentage}%`,
+    ])
+
+    // Combine headers and rows
+    const csvContent = [headers, ...rows]
+      .map((row) => row.map((field) => `"${field}"`).join(','))
+      .join('\n')
+
+    // Create and download the file
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+    const link = document.createElement('a')
+    const url = URL.createObjectURL(blob)
+    link.setAttribute('href', url)
+    link.setAttribute(
+      'download',
+      `ant-version-distribution-${new Date().toISOString().split('T')[0]}.csv`,
+    )
+    link.style.visibility = 'hidden'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
   }
 
   // Create a mapping from moduleId to version number
@@ -122,12 +178,40 @@ export function ANTVersionsStatistics({
         className={`rounded-lg border bg-card p-6 text-card-foreground shadow-sm ${className}`}
       >
         <div className="flex flex-col space-y-1.5 pb-6">
-          <h3 className="text-2xl font-semibold leading-none tracking-tight">
-            ANT Version Distribution
-          </h3>
-          <p className="text-sm text-muted-foreground">
-            Loading ANT version statistics...
-          </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-2xl font-semibold leading-none tracking-tight">
+                ANT Version Distribution
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Loading ANT version statistics...
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleRefresh}
+                disabled={isRefreshing}
+                className="flex items-center gap-2"
+              >
+                <RefreshCw
+                  className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`}
+                />
+                {isRefreshing ? 'Refreshing...' : 'Refresh'}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleCSVExport}
+                disabled={true}
+                className="flex items-center gap-2"
+              >
+                <Download className="h-4 w-4" />
+                Export CSV
+              </Button>
+            </div>
+          </div>
         </div>
         <div className="flex h-[400px] items-center justify-center">
           <p className="text-muted-foreground">No data available</p>
@@ -143,12 +227,40 @@ export function ANTVersionsStatistics({
       className={`rounded-lg border bg-card p-6 text-card-foreground shadow-sm ${className}`}
     >
       <div className="flex flex-col space-y-1.5 pb-6">
-        <h3 className="text-2xl font-semibold leading-none tracking-tight">
-          ANT Version Distribution
-        </h3>
-        <p className="text-sm text-muted-foreground">
-          Distribution of {totalANTs} ANTs across different module versions
-        </p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-2xl font-semibold leading-none tracking-tight">
+              ANT Version Distribution
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Distribution of {totalANTs} ANTs across different module versions
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleRefresh}
+              disabled={isRefreshing}
+              className="flex items-center gap-2"
+            >
+              <RefreshCw
+                className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`}
+              />
+              {isRefreshing ? 'Refreshing...' : 'Refresh'}
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleCSVExport}
+              disabled={chartData.length === 0}
+              className="flex items-center gap-2"
+            >
+              <Download className="h-4 w-4" />
+              Export CSV
+            </Button>
+          </div>
+        </div>
       </div>
 
       <ChartContainer config={chartConfig} className="h-[400px]">
