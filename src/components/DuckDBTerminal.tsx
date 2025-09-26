@@ -209,7 +209,7 @@ export function DuckDBTerminal({ sessionId, onReady }: DuckDBTerminalProps) {
           <div className="mb-2 text-sm font-medium text-destructive">
             Failed to initialize DuckDB
           </div>
-          <div className="text-xs text-muted-foreground">{dbError}</div>
+          <div className="text-xs text-muted-foreground">{dbError?.message || 'Unknown error'}</div>
           <button
             className="hover:bg-primary/90 mt-3 rounded bg-primary px-3 py-1 text-xs text-primary-foreground"
             onClick={() => window.location.reload()}

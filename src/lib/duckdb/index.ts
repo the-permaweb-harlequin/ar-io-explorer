@@ -5,6 +5,10 @@ export * from './types'
 export * from './instance-manager'
 export * from './bundle-manager'
 
+// Persistent storage
+export * from './persistent-config'
+export * from './persistent-data-manager'
+
 // React hooks
 export * from './hooks'
 

@@ -1,6 +1,5 @@
 import { useCallback } from 'react'
 
-import { Table as Arrow } from 'apache-arrow'
 import { useAsync } from 'react-async-hook'
 
 import { instanceManager } from '../instance-manager'

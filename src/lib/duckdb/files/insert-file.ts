@@ -188,7 +188,7 @@ export const insertArrowTable = async (
   tableName: string,
 ): Promise<void> => {
   const conn = await db.connect()
-  await conn.insertArrowTable(arrow, {
+  await conn.insertArrowTable(arrow as any, {
     name: tableName,
   })
   await conn.close()
